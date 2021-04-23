@@ -1,5 +1,5 @@
 abstract class CacheDataManager<DATA> {
-  Future<DATA?> loadData();
+  Future<DATA?> loadDataFromCache();
 
-  Future<void> saveData(final DATA? data);
+  Future<void> saveDataToCache(final DATA? newData);
 }

@@ -1,7 +1,7 @@
 abstract class DataState {
   const DataState();
 
-  const factory DataState.fixed({required final bool isReachLast}) = DataStateFixed;
+  const factory DataState.fixed({required final bool noMoreAdditionalData}) = DataStateFixed;
 
   const factory DataState.loading() = DataStateLoading;
 
@@ -25,9 +25,9 @@ abstract class DataState {
 }
 
 class DataStateFixed<T> extends DataState {
-  const DataStateFixed({required this.isReachLast});
+  const DataStateFixed({required this.noMoreAdditionalData});
 
-  final bool isReachLast;
+  final bool noMoreAdditionalData;
 }
 
 class DataStateLoading<T> extends DataState {

@@ -1,3 +1,5 @@
+import 'package:store_flowable/fetching_result.dart';
+
 abstract class OriginDataManager<DATA> {
-  Future<DATA> fetchOrigin();
+  Future<FetchingResult<DATA>> fetchDataFromOrigin();
 }

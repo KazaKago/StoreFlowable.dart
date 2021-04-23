@@ -1,4 +1,4 @@
-enum AsDataType {
+enum GettingFrom {
   mix,
   fromOrigin,
   fromCache,

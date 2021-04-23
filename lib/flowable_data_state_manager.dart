@@ -30,7 +30,7 @@ abstract class FlowableDataStateManager<KEY> implements DataStateManager<KEY>, F
 
 extension _MapBehaviorSubjectDataStateExtension<K> on Map<K, BehaviorSubject<DataState>> {
   BehaviorSubject<DataState> getOrCreate(final K key) {
-    return getOrCreateSeeded(key, () => const DataState.fixed(isReachLast: false));
+    return getOrCreateSeeded(key, () => const DataState.fixed(noMoreAdditionalData: false));
   }
 }
 

@@ -1,16 +1,16 @@
 import 'package:rxdart/rxdart.dart';
-import 'package:store_flowable/as_data_type.dart';
 import 'package:store_flowable/core/no_such_element_exception.dart';
 import 'package:store_flowable/core/state.dart';
 import 'package:store_flowable/core/state_content.dart';
 import 'package:store_flowable/data_state.dart';
+import 'package:store_flowable/getting_from.dart';
 import 'package:store_flowable/src/data_selector.dart';
 import 'package:store_flowable/src/data_state_mapper.dart';
 import 'package:store_flowable/store_flowable.dart';
-import 'package:store_flowable/store_flowable_responder.dart';
+import 'package:store_flowable/store_flowable_callback.dart';
 
 class StoreFlowableImpl<KEY, DATA> implements StoreFlowable<KEY, DATA> {
-  factory StoreFlowableImpl(final StoreFlowableResponder<KEY, DATA> storeFlowableResponder) {
+  factory StoreFlowableImpl(final StoreFlowableCallback<KEY, DATA> storeFlowableResponder) {
     final dataSelector = DataSelector<KEY, DATA>(
       storeFlowableResponder.getKey(),
       storeFlowableResponder.getFlowableDataStateManager(),
@@ -21,14 +21,14 @@ class StoreFlowableImpl<KEY, DATA> implements StoreFlowable<KEY, DATA> {
     return StoreFlowableImpl._(storeFlowableResponder, dataSelector);
   }
 
-  const StoreFlowableImpl._(this._storeFlowableResponder, this._dataSelector);
+  const StoreFlowableImpl._(this._storeFlowableCallback, this._dataSelector);
 
-  final StoreFlowableResponder<KEY, DATA> _storeFlowableResponder;
+  final StoreFlowableCallback<KEY, DATA> _storeFlowableCallback;
   final DataSelector<KEY, DATA> _dataSelector;
 
   @override
   Stream<State<DATA>> publish({final bool forceRefresh = false}) {
-    return _storeFlowableResponder.getFlowableDataStateManager().getFlow(_storeFlowableResponder.getKey()).doOnListen(() {
+    return _storeFlowableCallback.getFlowableDataStateManager().getFlow(_storeFlowableCallback.getKey()).doOnListen(() {
       _dataSelector.doStateAction(forceRefresh: forceRefresh, clearCacheBeforeFetching: true, clearCacheWhenFetchFails: true, continueWhenError: true, awaitFetching: false);
     }).asyncMap((dataState) async {
       final data = await _dataSelector.load();
@@ -38,22 +38,31 @@ class StoreFlowableImpl<KEY, DATA> implements StoreFlowable<KEY, DATA> {
   }
 
   @override
-  Future<DATA> get({final AsDataType type = AsDataType.mix}) async {
-    switch (type) {
-      case AsDataType.mix:
+  Future<DATA?> getData({final GettingFrom from = GettingFrom.mix}) async {
+    try {
+      return await requireData(from: from);
+    } on Exception catch (_) {
+      return null;
+    }
+  }
+
+  @override
+  Future<DATA> requireData({final GettingFrom from = GettingFrom.mix}) async {
+    switch (from) {
+      case GettingFrom.mix:
         await _dataSelector.doStateAction(forceRefresh: false, clearCacheBeforeFetching: true, clearCacheWhenFetchFails: true, continueWhenError: true, awaitFetching: true);
         break;
-      case AsDataType.fromOrigin:
+      case GettingFrom.fromOrigin:
         await _dataSelector.doStateAction(forceRefresh: true, clearCacheBeforeFetching: true, clearCacheWhenFetchFails: true, continueWhenError: true, awaitFetching: true);
         break;
-      case AsDataType.fromCache:
+      case GettingFrom.fromCache:
         //do nothing.
         break;
     }
-    return _storeFlowableResponder.getFlowableDataStateManager().getFlow(_storeFlowableResponder.getKey()).asyncExpand((dataState) async* {
+    return _storeFlowableCallback.getFlowableDataStateManager().getFlow(_storeFlowableCallback.getKey()).asyncExpand((dataState) async* {
       final data = await _dataSelector.load();
       if (dataState is DataStateFixed) {
-        if (data != null && !(await _storeFlowableResponder.needRefresh(data))) {
+        if (data != null && !(await _storeFlowableCallback.needRefresh(data))) {
           yield data;
         } else {
           throw const NoSuchElementException();
@@ -61,7 +70,7 @@ class StoreFlowableImpl<KEY, DATA> implements StoreFlowable<KEY, DATA> {
       } else if (dataState is DataStateLoading) {
         //do nothing.
       } else if (dataState is DataStateError) {
-        if (data != null && !(await _storeFlowableResponder.needRefresh(data))) {
+        if (data != null && !(await _storeFlowableCallback.needRefresh(data))) {
           yield data;
         } else {
           throw dataState.exception;
