@@ -1,6 +1,6 @@
-import 'package:store_flowable/src/paginating/paginating_store_flowable.dart';
-import 'package:store_flowable/src/paginating/paginating_store_flowable_callback.dart';
-import 'package:store_flowable/src/paginating/paginating_store_flowable_impl.dart';
+import 'package:store_flowable/src/pagination/paginating_store_flowable.dart';
+import 'package:store_flowable/src/pagination/paginating_store_flowable_callback.dart';
+import 'package:store_flowable/src/pagination/paginating_store_flowable_impl.dart';
 import 'package:store_flowable/src/store_flowable.dart';
 import 'package:store_flowable/src/store_flowable_callback.dart';
 import 'package:store_flowable/src/store_flowable_impl.dart';
