@@ -1,5 +1,5 @@
 import 'package:rxdart/rxdart.dart';
-import 'package:store_flowable/data_state.dart';
+import 'package:store_flowable/src/data_state.dart';
 import 'package:store_flowable/src/data_state_manager.dart';
 import 'package:store_flowable/src/flow_accessor.dart';
 

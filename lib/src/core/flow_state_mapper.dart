@@ -1,5 +1,5 @@
-import 'package:store_flowable/core/state.dart';
-import 'package:store_flowable/core/state_content.dart';
+import 'package:store_flowable/src/core/state.dart';
+import 'package:store_flowable/src/core/state_content.dart';
 
 extension FlowStateMapper<A> on Stream<State<A>> {
   Stream<State<Z>> mapContent<Z>(final Z Function(A content) transform) {

@@ -1,5 +1,5 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:store_flowable/core/state_content.dart';
+import 'package:store_flowable/src/core/state_content.dart';
 
 part 'state.freezed.dart';
 

@@ -1,16 +1,14 @@
-import 'package:store_flowable/core/state.dart';
-import 'package:store_flowable/getting_from.dart';
-
-abstract class StoreFlowable<KEY, DATA> {
-  Stream<State<DATA>> publish({final bool forceRefresh});
-
-  Future<DATA?> getData({final GettingFrom from});
-
-  Future<DATA> requireData({final GettingFrom from});
-
-  Future<void> validate();
-
-  Future<void> refresh({final bool clearCacheWhenFetchFails, final bool continueWhenError});
-
-  Future<void> update(final DATA? newData);
-}
+export 'src/cache_data_manager.dart';
+export 'src/data_state.dart';
+export 'src/fetching_result.dart';
+export 'src/flowable_data_state_manager.dart';
+export 'src/getting_from.dart';
+export 'src/origin_data_manager.dart';
+export 'src/paginating/paginating_cache_data_manager.dart';
+export 'src/paginating/paginating_origin_data_manager.dart';
+export 'src/paginating/paginating_store_flowable.dart';
+export 'src/paginating/paginating_store_flowable_callback.dart';
+export 'src/store_flowable.dart';
+export 'src/store_flowable_callback.dart';
+export 'src/store_flowable_extension.dart';
+export 'store_flowable_core.dart';

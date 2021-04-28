@@ -1,8 +1,8 @@
-import 'package:store_flowable/data_state.dart';
-import 'package:store_flowable/fetching_result.dart';
-import 'package:store_flowable/paginating/paginating_cache_data_manager.dart';
-import 'package:store_flowable/paginating/paginating_origin_data_manager.dart';
+import 'package:store_flowable/src/data_state.dart';
 import 'package:store_flowable/src/data_state_manager.dart';
+import 'package:store_flowable/src/fetching_result.dart';
+import 'package:store_flowable/src/paginating/paginating_cache_data_manager.dart';
+import 'package:store_flowable/src/paginating/paginating_origin_data_manager.dart';
 
 class PaginatingDataSelector<KEY, DATA> {
   const PaginatingDataSelector(this._key, this._dataStateManager, this._cacheDataManager, this._originDataManager, this._needRefresh);

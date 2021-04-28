@@ -1,4 +1,4 @@
-import 'package:store_flowable/core/state_content.dart';
+import 'package:store_flowable/src/core/state_content.dart';
 import 'package:tuple/tuple.dart';
 
 extension StateContentZipper<A> on StateContent<A> {

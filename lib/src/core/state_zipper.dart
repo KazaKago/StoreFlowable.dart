@@ -1,5 +1,5 @@
-import 'package:store_flowable/core/state.dart';
-import 'package:store_flowable/core/state_content_zipper.dart';
+import 'package:store_flowable/src/core/state.dart';
+import 'package:store_flowable/src/core/state_content_zipper.dart';
 import 'package:tuple/tuple.dart';
 
 extension StateZipper<A> on State<A> {

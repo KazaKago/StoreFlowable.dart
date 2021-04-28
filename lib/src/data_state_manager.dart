@@ -1,4 +1,4 @@
-import 'package:store_flowable/data_state.dart';
+import 'package:store_flowable/src/data_state.dart';
 
 abstract class DataStateManager<KEY> {
   DataState loadState(final KEY key);

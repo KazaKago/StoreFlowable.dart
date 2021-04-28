@@ -1,6 +1,6 @@
 import 'package:rxdart/rxdart.dart';
-import 'package:store_flowable/core/state.dart';
-import 'package:store_flowable/core/state_zipper.dart';
+import 'package:store_flowable/src/core/state.dart';
+import 'package:store_flowable/src/core/state_zipper.dart';
 
 extension FlowStateCombiner<A> on Stream<State<A>> {
   Stream<State<Z>> combineState2<B, Z>(final Stream<State<B>> stateStream2, final Z Function(A rawContent1, B rawContent2) transform) {

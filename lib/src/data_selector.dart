@@ -1,7 +1,7 @@
-import 'package:store_flowable/cache_data_manager.dart';
-import 'package:store_flowable/data_state.dart';
-import 'package:store_flowable/origin_data_manager.dart';
+import 'package:store_flowable/src/cache_data_manager.dart';
+import 'package:store_flowable/src/data_state.dart';
 import 'package:store_flowable/src/data_state_manager.dart';
+import 'package:store_flowable/src/origin_data_manager.dart';
 
 class DataSelector<KEY, DATA> {
   const DataSelector(this._key, this._dataStateManager, this._cacheDataManager, this._originDataManager, this._needRefresh);

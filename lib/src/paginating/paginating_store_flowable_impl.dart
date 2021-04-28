@@ -1,13 +1,13 @@
 import 'package:rxdart/rxdart.dart';
-import 'package:store_flowable/core/no_such_element_exception.dart';
-import 'package:store_flowable/core/state.dart';
-import 'package:store_flowable/core/state_content.dart';
-import 'package:store_flowable/data_state.dart';
-import 'package:store_flowable/getting_from.dart';
-import 'package:store_flowable/paginating/paginating_store_flowable.dart';
-import 'package:store_flowable/paginating/paginating_store_flowable_callback.dart';
+import 'package:store_flowable/src/core/no_such_element_exception.dart';
+import 'package:store_flowable/src/core/state.dart';
+import 'package:store_flowable/src/core/state_content.dart';
+import 'package:store_flowable/src/data_state.dart';
 import 'package:store_flowable/src/data_state_mapper.dart';
+import 'package:store_flowable/src/getting_from.dart';
 import 'package:store_flowable/src/paginating/paginating_data_selector.dart';
+import 'package:store_flowable/src/paginating/paginating_store_flowable.dart';
+import 'package:store_flowable/src/paginating/paginating_store_flowable_callback.dart';
 
 class PaginatingStoreFlowableImpl<KEY, DATA> implements PaginatingStoreFlowable<KEY, DATA> {
   factory PaginatingStoreFlowableImpl(final PaginatingStoreFlowableCallback<KEY, DATA> storeFlowableResponder) {
