@@ -1,5 +1,5 @@
 enum GettingFrom {
-  mix,
-  fromOrigin,
-  fromCache,
+  both,
+  origin,
+  cache,
 }

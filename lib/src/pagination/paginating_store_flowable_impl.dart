@@ -38,7 +38,7 @@ class PaginatingStoreFlowableImpl<KEY, DATA> implements PaginatingStoreFlowable<
   }
 
   @override
-  Future<DATA?> getData({final GettingFrom from = GettingFrom.mix}) async {
+  Future<DATA?> getData({final GettingFrom from = GettingFrom.both}) async {
     try {
       return await requireData(from: from);
     } on Exception catch (_) {
@@ -47,15 +47,15 @@ class PaginatingStoreFlowableImpl<KEY, DATA> implements PaginatingStoreFlowable<
   }
 
   @override
-  Future<DATA> requireData({final GettingFrom from = GettingFrom.mix}) async {
+  Future<DATA> requireData({final GettingFrom from = GettingFrom.both}) async {
     switch (from) {
-      case GettingFrom.mix:
+      case GettingFrom.both:
         await _dataSelector.doStateAction(forceRefresh: false, clearCacheBeforeFetching: true, clearCacheWhenFetchFails: true, continueWhenError: true, awaitFetching: true, additionalRequest: false);
         break;
-      case GettingFrom.fromOrigin:
+      case GettingFrom.origin:
         await _dataSelector.doStateAction(forceRefresh: true, clearCacheBeforeFetching: true, clearCacheWhenFetchFails: true, continueWhenError: true, awaitFetching: true, additionalRequest: false);
         break;
-      case GettingFrom.fromCache:
+      case GettingFrom.cache:
         //do nothing.
         break;
     }
