@@ -13,7 +13,7 @@ abstract class FlowableDataStateManager<KEY> implements DataStateManager<KEY>, F
 
   @override
   DataState loadState(final KEY key) {
-    return _dataState.getOrCreate(key).requireValue;
+    return _dataState.getOrCreate(key).value;
   }
 
   @override

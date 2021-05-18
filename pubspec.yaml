@@ -8,7 +8,7 @@ environment:
 
 dependencies:
   freezed_annotation: ^0.14.0
-  rxdart: ^0.26.0
+  rxdart: ^0.27.0
   tuple: ^2.0.0
 
 dev_dependencies:
