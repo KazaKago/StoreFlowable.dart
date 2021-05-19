@@ -7,10 +7,10 @@ import 'package:store_flowable/src/data_state.dart';
 import 'package:store_flowable/src/data_state_mapper.dart';
 import 'package:store_flowable/src/getting_from.dart';
 import 'package:store_flowable/src/store_flowable.dart';
-import 'package:store_flowable/src/store_flowable_callback.dart';
+import 'package:store_flowable/src/store_flowable_factory.dart';
 
 class StoreFlowableImpl<KEY, DATA> implements StoreFlowable<KEY, DATA> {
-  factory StoreFlowableImpl(final StoreFlowableCallback<KEY, DATA> storeFlowableResponder) {
+  factory StoreFlowableImpl(final StoreFlowableFactory<KEY, DATA> storeFlowableResponder) {
     final dataSelector = DataSelector<KEY, DATA>(
       storeFlowableResponder.getKey(),
       storeFlowableResponder.getFlowableDataStateManager(),
@@ -23,7 +23,7 @@ class StoreFlowableImpl<KEY, DATA> implements StoreFlowable<KEY, DATA> {
 
   const StoreFlowableImpl._(this._storeFlowableCallback, this._dataSelector);
 
-  final StoreFlowableCallback<KEY, DATA> _storeFlowableCallback;
+  final StoreFlowableFactory<KEY, DATA> _storeFlowableCallback;
   final DataSelector<KEY, DATA> _dataSelector;
 
   @override

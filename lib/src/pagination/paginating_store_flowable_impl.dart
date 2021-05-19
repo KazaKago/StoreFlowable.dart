@@ -7,10 +7,10 @@ import 'package:store_flowable/src/data_state_mapper.dart';
 import 'package:store_flowable/src/getting_from.dart';
 import 'package:store_flowable/src/pagination/paginating_data_selector.dart';
 import 'package:store_flowable/src/pagination/paginating_store_flowable.dart';
-import 'package:store_flowable/src/pagination/paginating_store_flowable_callback.dart';
+import 'package:store_flowable/src/pagination/paginating_store_flowable_factory.dart';
 
 class PaginatingStoreFlowableImpl<KEY, DATA> implements PaginatingStoreFlowable<KEY, DATA> {
-  factory PaginatingStoreFlowableImpl(final PaginatingStoreFlowableCallback<KEY, DATA> storeFlowableResponder) {
+  factory PaginatingStoreFlowableImpl(final PaginatingStoreFlowableFactory<KEY, DATA> storeFlowableResponder) {
     final dataSelector = PaginatingDataSelector<KEY, DATA>(
       storeFlowableResponder.getKey(),
       storeFlowableResponder.getFlowableDataStateManager(),
@@ -23,7 +23,7 @@ class PaginatingStoreFlowableImpl<KEY, DATA> implements PaginatingStoreFlowable<
 
   const PaginatingStoreFlowableImpl._(this._storeFlowableCallback, this._dataSelector);
 
-  final PaginatingStoreFlowableCallback<KEY, DATA> _storeFlowableCallback;
+  final PaginatingStoreFlowableFactory<KEY, DATA> _storeFlowableCallback;
   final PaginatingDataSelector<KEY, DATA> _dataSelector;
 
   @override
