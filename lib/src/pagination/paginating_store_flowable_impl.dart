@@ -4,31 +4,35 @@ import 'package:store_flowable/src/core/state.dart';
 import 'package:store_flowable/src/core/state_content.dart';
 import 'package:store_flowable/src/data_state.dart';
 import 'package:store_flowable/src/data_state_mapper.dart';
+import 'package:store_flowable/src/flowable_data_state_manager.dart';
 import 'package:store_flowable/src/getting_from.dart';
+import 'package:store_flowable/src/pagination/paginating_cache_data_manager.dart';
 import 'package:store_flowable/src/pagination/paginating_data_selector.dart';
+import 'package:store_flowable/src/pagination/paginating_origin_data_manager.dart';
 import 'package:store_flowable/src/pagination/paginating_store_flowable.dart';
-import 'package:store_flowable/src/pagination/paginating_store_flowable_factory.dart';
 
 class PaginatingStoreFlowableImpl<KEY, DATA> implements PaginatingStoreFlowable<KEY, DATA> {
-  factory PaginatingStoreFlowableImpl(final PaginatingStoreFlowableFactory<KEY, DATA> storeFlowableResponder) {
-    final dataSelector = PaginatingDataSelector<KEY, DATA>(
-      storeFlowableResponder.getKey(),
-      storeFlowableResponder.getFlowableDataStateManager(),
-      storeFlowableResponder,
-      storeFlowableResponder,
-      storeFlowableResponder.needRefresh,
-    );
-    return PaginatingStoreFlowableImpl._(storeFlowableResponder, dataSelector);
+  factory PaginatingStoreFlowableImpl({
+    required final KEY key,
+    required final FlowableDataStateManager<KEY> flowableDataStateManager,
+    required final PaginatingCacheDataManager<DATA> cacheDataManager,
+    required final PaginatingOriginDataManager<DATA> originDataManager,
+    required final Future<bool> Function(DATA cachedData) needRefresh,
+  }) {
+    final dataSelector = PaginatingDataSelector<KEY, DATA>(key, flowableDataStateManager, cacheDataManager, originDataManager, needRefresh);
+    return PaginatingStoreFlowableImpl._(key, flowableDataStateManager, needRefresh, dataSelector);
   }
 
-  const PaginatingStoreFlowableImpl._(this._storeFlowableCallback, this._dataSelector);
+  const PaginatingStoreFlowableImpl._(this._key, this._flowableDataStateManager, this._needRefresh, this._dataSelector);
 
-  final PaginatingStoreFlowableFactory<KEY, DATA> _storeFlowableCallback;
+  final KEY _key;
+  final FlowableDataStateManager<KEY> _flowableDataStateManager;
+  final Future<bool> Function(DATA cachedData) _needRefresh;
   final PaginatingDataSelector<KEY, DATA> _dataSelector;
 
   @override
   Stream<State<DATA>> publish({final bool forceRefresh = false}) {
-    return _storeFlowableCallback.getFlowableDataStateManager().getFlow(_storeFlowableCallback.getKey()).doOnListen(() {
+    return _flowableDataStateManager.getFlow(_key).doOnListen(() {
       _dataSelector.doStateAction(forceRefresh: forceRefresh, clearCacheBeforeFetching: true, clearCacheWhenFetchFails: true, continueWhenError: true, awaitFetching: false, additionalRequest: false);
     }).asyncMap((dataState) async {
       final data = await _dataSelector.load();
@@ -59,10 +63,10 @@ class PaginatingStoreFlowableImpl<KEY, DATA> implements PaginatingStoreFlowable<
         //do nothing.
         break;
     }
-    return _storeFlowableCallback.getFlowableDataStateManager().getFlow(_storeFlowableCallback.getKey()).asyncExpand((dataState) async* {
+    return _flowableDataStateManager.getFlow(_key).asyncExpand((dataState) async* {
       final data = await _dataSelector.load();
       if (dataState is DataStateFixed) {
-        if (data != null && !(await _storeFlowableCallback.needRefresh(data))) {
+        if (data != null && !(await _needRefresh(data))) {
           yield data;
         } else {
           throw const NoSuchElementException();
@@ -70,7 +74,7 @@ class PaginatingStoreFlowableImpl<KEY, DATA> implements PaginatingStoreFlowable<
       } else if (dataState is DataStateLoading) {
         //do nothing.
       } else if (dataState is DataStateError) {
-        if (data != null && !(await _storeFlowableCallback.needRefresh(data))) {
+        if (data != null && !(await _needRefresh(data))) {
           yield data;
         } else {
           throw dataState.exception;

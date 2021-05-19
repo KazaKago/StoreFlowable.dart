@@ -1,34 +1,38 @@
 import 'package:rxdart/rxdart.dart';
+import 'package:store_flowable/src/cache_data_manager.dart';
 import 'package:store_flowable/src/core/no_such_element_exception.dart';
 import 'package:store_flowable/src/core/state.dart';
 import 'package:store_flowable/src/core/state_content.dart';
 import 'package:store_flowable/src/data_selector.dart';
 import 'package:store_flowable/src/data_state.dart';
 import 'package:store_flowable/src/data_state_mapper.dart';
+import 'package:store_flowable/src/flowable_data_state_manager.dart';
 import 'package:store_flowable/src/getting_from.dart';
+import 'package:store_flowable/src/origin_data_manager.dart';
 import 'package:store_flowable/src/store_flowable.dart';
-import 'package:store_flowable/src/store_flowable_factory.dart';
 
 class StoreFlowableImpl<KEY, DATA> implements StoreFlowable<KEY, DATA> {
-  factory StoreFlowableImpl(final StoreFlowableFactory<KEY, DATA> storeFlowableResponder) {
-    final dataSelector = DataSelector<KEY, DATA>(
-      storeFlowableResponder.getKey(),
-      storeFlowableResponder.getFlowableDataStateManager(),
-      storeFlowableResponder,
-      storeFlowableResponder,
-      storeFlowableResponder.needRefresh,
-    );
-    return StoreFlowableImpl._(storeFlowableResponder, dataSelector);
+  factory StoreFlowableImpl({
+    required final KEY key,
+    required final FlowableDataStateManager<KEY> flowableDataStateManager,
+    required final CacheDataManager<DATA> cacheDataManager,
+    required final OriginDataManager<DATA> originDataManager,
+    required final Future<bool> Function(DATA cachedData) needRefresh,
+  }) {
+    final dataSelector = DataSelector<KEY, DATA>(key, flowableDataStateManager, cacheDataManager, originDataManager, needRefresh);
+    return StoreFlowableImpl._(key, flowableDataStateManager, needRefresh, dataSelector);
   }
 
-  const StoreFlowableImpl._(this._storeFlowableCallback, this._dataSelector);
+  const StoreFlowableImpl._(this._key, this._flowableDataStateManager, this._needRefresh, this._dataSelector);
 
-  final StoreFlowableFactory<KEY, DATA> _storeFlowableCallback;
+  final KEY _key;
+  final FlowableDataStateManager<KEY> _flowableDataStateManager;
+  final Future<bool> Function(DATA cachedData) _needRefresh;
   final DataSelector<KEY, DATA> _dataSelector;
 
   @override
   Stream<State<DATA>> publish({final bool forceRefresh = false}) {
-    return _storeFlowableCallback.getFlowableDataStateManager().getFlow(_storeFlowableCallback.getKey()).doOnListen(() {
+    return _flowableDataStateManager.getFlow(_key).doOnListen(() {
       _dataSelector.doStateAction(forceRefresh: forceRefresh, clearCacheBeforeFetching: true, clearCacheWhenFetchFails: true, continueWhenError: true, awaitFetching: false);
     }).asyncMap((dataState) async {
       final data = await _dataSelector.load();
@@ -59,10 +63,10 @@ class StoreFlowableImpl<KEY, DATA> implements StoreFlowable<KEY, DATA> {
         //do nothing.
         break;
     }
-    return _storeFlowableCallback.getFlowableDataStateManager().getFlow(_storeFlowableCallback.getKey()).asyncExpand((dataState) async* {
+    return _flowableDataStateManager.getFlow(_key).asyncExpand((dataState) async* {
       final data = await _dataSelector.load();
       if (dataState is DataStateFixed) {
-        if (data != null && !(await _storeFlowableCallback.needRefresh(data))) {
+        if (data != null && !(await _needRefresh(data))) {
           yield data;
         } else {
           throw const NoSuchElementException();
@@ -70,7 +74,7 @@ class StoreFlowableImpl<KEY, DATA> implements StoreFlowable<KEY, DATA> {
       } else if (dataState is DataStateLoading) {
         //do nothing.
       } else if (dataState is DataStateError) {
-        if (data != null && !(await _storeFlowableCallback.needRefresh(data))) {
+        if (data != null && !(await _needRefresh(data))) {
           yield data;
         } else {
           throw dataState.exception;
