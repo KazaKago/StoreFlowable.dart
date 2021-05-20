@@ -4,7 +4,7 @@ version: 1.0.0
 homepage: https://github.com/KazaKago/StoreFlowable.dart
 
 environment:
-  sdk: '>=2.12.0 <3.0.0'
+  sdk: '>=2.13.0 <3.0.0'
 
 dependencies:
   freezed_annotation: ^0.14.0
