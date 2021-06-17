@@ -1,0 +1,22 @@
+name: Deploy
+
+on:
+  push:
+    tags: [ "*.*.*" ]
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - uses: dart-lang/setup-dart@v1
+
+      - run: dart pub get
+
+      - uses: k-paxian/dart-package-publisher@v1.3
+        with:
+          accessToken: ${{ secrets.CREDENTIALS_ACCESS_TOKEN }}
+          refreshToken: ${{ secrets.CREDENTIALS_REFRESH_TOKEN }}
