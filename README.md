@@ -1,22 +1,37 @@
-A library for Dart developers.
+# StoreFlowable.dart
 
-Created from templates made available by Stagehand under a BSD-style
-[license](https://github.com/dart-lang/stagehand/blob/master/LICENSE).
+[![pub package](https://img.shields.io/pub/v/store_flowable)](https://pub.dev/packages/store_flowable)
+[![Test](https://github.com/KazaKago/StoreFlowable.dart/workflows/Test/badge.svg)](https://github.com/KazaKago/StoreFlowable.dart/actions?query=workflow%3ATest)
+[![License](https://img.shields.io/github/license/kazakago/storeflowable.dart.svg)](LICENSE)
 
-## Usage
+[Repository pattern](https://msdn.microsoft.com/en-us/library/ff649690.aspx) support library for Dart with Stream API.  
+Available for Flutter or any Dart projects.  
 
-A simple usage example:
+## Overview
 
-```dart
-import 'package:StoreFlowable/store_flowable.dart';
+[WIP]
 
-main() {
-  var awesome = new Awesome();
-}
+## Requirement
+
+- Dart 2.13.0 or later
+
+## Install
+
+Add the following dependency in `pubspec.yaml` exchanging x.x.x for the latest release.
+
+```yaml
+dependencies:
+  store_flowable: ^x.x.x
 ```
 
-## Features and bugs
+## Basic Usage
 
-Please file feature requests and bugs at the [issue tracker][tracker].
+[WIP]
 
-[tracker]: http://example.com/issues/replaceme
+## Example
+
+[WIP]
+
+## License
+
+This project is licensed under the **Apache-2.0 License** - see the [LICENSE](LICENSE) file for details.  
