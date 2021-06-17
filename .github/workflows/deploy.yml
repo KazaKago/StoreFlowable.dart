@@ -20,4 +20,3 @@ jobs:
         with:
           accessToken: ${{ secrets.CREDENTIALS_ACCESS_TOKEN }}
           refreshToken: ${{ secrets.CREDENTIALS_REFRESH_TOKEN }}
-          dryRunOnly: true
