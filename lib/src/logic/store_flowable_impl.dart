@@ -61,18 +61,19 @@ class StoreFlowableImpl<KEY, DATA> implements StoreFlowable<KEY, DATA>, Paginati
 
   @override
   Future<DATA> requireData({final GettingFrom from = GettingFrom.both}) async {
-    switch (from) {
-      case GettingFrom.both:
-        await _dataSelector.validate();
-        break;
-      case GettingFrom.origin:
-        await _dataSelector.refresh(clearCacheBeforeFetching: true);
-        break;
-      case GettingFrom.cache:
-        //do nothing.
-        break;
-    }
-    return _flowableDataStateManager.getFlow(_key).asyncExpand((dataState) async* {
+    return _flowableDataStateManager.getFlow(_key).doOnListen(() async {
+      switch (from) {
+        case GettingFrom.both:
+          await _dataSelector.validate();
+          break;
+        case GettingFrom.origin:
+          await _dataSelector.refresh(clearCacheBeforeFetching: true);
+          break;
+        case GettingFrom.cache:
+          //do nothing.
+          break;
+      }
+    }).asyncExpand((dataState) async* {
       final data = await _dataSelector.loadValidCacheOrNull();
       if (dataState is DataStateFixed) {
         if (data != null) {
