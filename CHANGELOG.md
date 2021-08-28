@@ -1,3 +1,7 @@
+## 0.2.2
+
+bugfix & update dependencies.
+
 ## 0.2.1
 
 Downgrade dependencies for flutter 2.2.3.
