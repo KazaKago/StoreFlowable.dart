@@ -1,6 +1,6 @@
 name: store_flowable
 description: Repository pattern support library for Dart with Stream API.
-version: 0.2.1
+version: 0.2.2
 homepage: https://github.com/KazaKago/StoreFlowable.dart
 
 environment:
@@ -12,7 +12,7 @@ dependencies:
   tuple: ^2.0.0
 
 dev_dependencies:
-  build_runner: ^2.0.6
+  build_runner: ^2.1.1
   freezed: ^0.14.2
-  pedantic_mono: ^1.13.0+3
-  test: ^1.17.10
+  pedantic_mono: ^1.14.0
+  test: ^1.17.11

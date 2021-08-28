@@ -1,4 +1,3 @@
-import 'package:rxdart/rxdart.dart';
 import 'package:store_flowable/src/cache/cache_data_manager.dart';
 import 'package:store_flowable/src/core/loading_state_stream.dart';
 import 'package:store_flowable/src/datastate/data_state.dart';
@@ -37,14 +36,13 @@ class StoreFlowableImpl<KEY, DATA> implements StoreFlowable<KEY, DATA>, Paginati
   final DataSelector<KEY, DATA> _dataSelector;
 
   @override
-  LoadingStateStream<DATA> publish({final bool forceRefresh = false}) {
-    return _flowableDataStateManager.getFlow(_key).doOnListen(() async {
-      if (forceRefresh) {
-        await _dataSelector.refreshAsync(clearCacheBeforeFetching: true);
-      } else {
-        await _dataSelector.validateAsync();
-      }
-    }).asyncMap((dataState) async {
+  Future<LoadingStateStream<DATA>> publish({final bool forceRefresh = false}) async {
+    if (forceRefresh) {
+      await _dataSelector.refreshAsync(clearCacheBeforeFetching: true);
+    } else {
+      await _dataSelector.validateAsync();
+    }
+    return _flowableDataStateManager.getFlow(_key).asyncMap((dataState) async {
       final data = await _cacheDataManager.load();
       return dataState.toLoadingState(data);
     });
@@ -61,19 +59,18 @@ class StoreFlowableImpl<KEY, DATA> implements StoreFlowable<KEY, DATA>, Paginati
 
   @override
   Future<DATA> requireData({final GettingFrom from = GettingFrom.both}) async {
-    return _flowableDataStateManager.getFlow(_key).doOnListen(() async {
-      switch (from) {
-        case GettingFrom.both:
-          await _dataSelector.validate();
-          break;
-        case GettingFrom.origin:
-          await _dataSelector.refresh(clearCacheBeforeFetching: true);
-          break;
-        case GettingFrom.cache:
-          //do nothing.
-          break;
-      }
-    }).asyncExpand((dataState) async* {
+    switch (from) {
+      case GettingFrom.both:
+        await _dataSelector.validate();
+        break;
+      case GettingFrom.origin:
+        await _dataSelector.refresh(clearCacheBeforeFetching: true);
+        break;
+      case GettingFrom.cache:
+        //do nothing.
+        break;
+    }
+    return _flowableDataStateManager.getFlow(_key).asyncExpand((dataState) async* {
       final data = await _dataSelector.loadValidCacheOrNull();
       if (dataState is DataStateFixed) {
         if (data != null) {
