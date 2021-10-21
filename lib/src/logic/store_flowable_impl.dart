@@ -32,7 +32,7 @@ class StoreFlowableImpl<KEY, DATA> implements StoreFlowable<KEY, DATA>, Paginati
 
   final KEY _key;
   final FlowableDataStateManager<KEY> _flowableDataStateManager;
-  final CacheDataManager _cacheDataManager;
+  final CacheDataManager<DATA> _cacheDataManager;
   final DataSelector<KEY, DATA> _dataSelector;
 
   @override

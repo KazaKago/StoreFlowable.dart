@@ -1,6 +1,6 @@
+import 'package:store_flowable/src/core/additional_loading_state_zipper.dart';
 import 'package:store_flowable/src/core/loading_state.dart';
 import 'package:tuple/tuple.dart';
-import 'package:store_flowable/src/core/additional_loading_state_zipper.dart';
 
 extension LoadingStateZipper<A> on LoadingState<A> {
   LoadingState<Z> zip2<B, Z>(final LoadingState<B> state2, final Z Function(A rawContent1, B rawContent2) transform) {
