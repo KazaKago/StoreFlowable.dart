@@ -1,3 +1,4 @@
+// coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target
 
@@ -46,6 +47,13 @@ mixin _$AdditionalLoadingState {
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult Function(bool canRequestAdditionalData)? fixed,
+    TResult Function()? loading,
+    TResult Function(Exception exception)? error,
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(bool canRequestAdditionalData)? fixed,
     TResult Function()? loading,
@@ -58,6 +66,13 @@ mixin _$AdditionalLoadingState {
     required TResult Function(_Fixed value) fixed,
     required TResult Function(_Loading value) loading,
     required TResult Function(_Error value) error,
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult Function(_Fixed value)? fixed,
+    TResult Function(_Loading value)? loading,
+    TResult Function(_Error value)? error,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -133,17 +148,15 @@ class _$_Fixed implements _Fixed {
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other is _Fixed &&
+        (other.runtimeType == runtimeType &&
+            other is _Fixed &&
             (identical(
                     other.canRequestAdditionalData, canRequestAdditionalData) ||
-                const DeepCollectionEquality().equals(
-                    other.canRequestAdditionalData, canRequestAdditionalData)));
+                other.canRequestAdditionalData == canRequestAdditionalData));
   }
 
   @override
-  int get hashCode =>
-      runtimeType.hashCode ^
-      const DeepCollectionEquality().hash(canRequestAdditionalData);
+  int get hashCode => Object.hash(runtimeType, canRequestAdditionalData);
 
   @JsonKey(ignore: true)
   @override
@@ -158,6 +171,16 @@ class _$_Fixed implements _Fixed {
     required TResult Function(Exception exception) error,
   }) {
     return fixed(canRequestAdditionalData);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult Function(bool canRequestAdditionalData)? fixed,
+    TResult Function()? loading,
+    TResult Function(Exception exception)? error,
+  }) {
+    return fixed?.call(canRequestAdditionalData);
   }
 
   @override
@@ -186,6 +209,16 @@ class _$_Fixed implements _Fixed {
 
   @override
   @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult Function(_Fixed value)? fixed,
+    TResult Function(_Loading value)? loading,
+    TResult Function(_Error value)? error,
+  }) {
+    return fixed?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Fixed value)? fixed,
     TResult Function(_Loading value)? loading,
@@ -202,7 +235,7 @@ class _$_Fixed implements _Fixed {
 abstract class _Fixed implements AdditionalLoadingState {
   const factory _Fixed({required bool canRequestAdditionalData}) = _$_Fixed;
 
-  bool get canRequestAdditionalData => throw _privateConstructorUsedError;
+  bool get canRequestAdditionalData;
   @JsonKey(ignore: true)
   _$FixedCopyWith<_Fixed> get copyWith => throw _privateConstructorUsedError;
 }
@@ -236,7 +269,8 @@ class _$_Loading implements _Loading {
 
   @override
   bool operator ==(dynamic other) {
-    return identical(this, other) || (other is _Loading);
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is _Loading);
   }
 
   @override
@@ -250,6 +284,16 @@ class _$_Loading implements _Loading {
     required TResult Function(Exception exception) error,
   }) {
     return loading();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult Function(bool canRequestAdditionalData)? fixed,
+    TResult Function()? loading,
+    TResult Function(Exception exception)? error,
+  }) {
+    return loading?.call();
   }
 
   @override
@@ -274,6 +318,16 @@ class _$_Loading implements _Loading {
     required TResult Function(_Error value) error,
   }) {
     return loading(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult Function(_Fixed value)? fixed,
+    TResult Function(_Loading value)? loading,
+    TResult Function(_Error value)? error,
+  }) {
+    return loading?.call(this);
   }
 
   @override
@@ -341,15 +395,14 @@ class _$_Error implements _Error {
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other is _Error &&
+        (other.runtimeType == runtimeType &&
+            other is _Error &&
             (identical(other.exception, exception) ||
-                const DeepCollectionEquality()
-                    .equals(other.exception, exception)));
+                other.exception == exception));
   }
 
   @override
-  int get hashCode =>
-      runtimeType.hashCode ^ const DeepCollectionEquality().hash(exception);
+  int get hashCode => Object.hash(runtimeType, exception);
 
   @JsonKey(ignore: true)
   @override
@@ -364,6 +417,16 @@ class _$_Error implements _Error {
     required TResult Function(Exception exception) error,
   }) {
     return error(exception);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult Function(bool canRequestAdditionalData)? fixed,
+    TResult Function()? loading,
+    TResult Function(Exception exception)? error,
+  }) {
+    return error?.call(exception);
   }
 
   @override
@@ -392,6 +455,16 @@ class _$_Error implements _Error {
 
   @override
   @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult Function(_Fixed value)? fixed,
+    TResult Function(_Loading value)? loading,
+    TResult Function(_Error value)? error,
+  }) {
+    return error?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Fixed value)? fixed,
     TResult Function(_Loading value)? loading,
@@ -408,7 +481,7 @@ class _$_Error implements _Error {
 abstract class _Error implements AdditionalLoadingState {
   const factory _Error(Exception exception) = _$_Error;
 
-  Exception get exception => throw _privateConstructorUsedError;
+  Exception get exception;
   @JsonKey(ignore: true)
   _$ErrorCopyWith<_Error> get copyWith => throw _privateConstructorUsedError;
 }

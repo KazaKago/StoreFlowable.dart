@@ -1,3 +1,4 @@
+// coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target
 
@@ -57,6 +58,14 @@ mixin _$AdditionalDataState {
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult Function(String additionalRequestKey)? fixed,
+    TResult Function()? fixedWithNoMoreAdditionalData,
+    TResult Function(String additionalRequestKey)? loading,
+    TResult Function(String additionalRequestKey, Exception exception)? error,
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String additionalRequestKey)? fixed,
     TResult Function()? fixedWithNoMoreAdditionalData,
@@ -73,6 +82,15 @@ mixin _$AdditionalDataState {
         fixedWithNoMoreAdditionalData,
     required TResult Function(AdditionalDataStateLoading value) loading,
     required TResult Function(AdditionalDataStateError value) error,
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult Function(AdditionalDataStateFixed value)? fixed,
+    TResult Function(AdditionalDataStateFixedWithNoMoreAdditionalData value)?
+        fixedWithNoMoreAdditionalData,
+    TResult Function(AdditionalDataStateLoading value)? loading,
+    TResult Function(AdditionalDataStateError value)? error,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -154,16 +172,14 @@ class _$AdditionalDataStateFixed extends AdditionalDataStateFixed {
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other is AdditionalDataStateFixed &&
+        (other.runtimeType == runtimeType &&
+            other is AdditionalDataStateFixed &&
             (identical(other.additionalRequestKey, additionalRequestKey) ||
-                const DeepCollectionEquality()
-                    .equals(other.additionalRequestKey, additionalRequestKey)));
+                other.additionalRequestKey == additionalRequestKey));
   }
 
   @override
-  int get hashCode =>
-      runtimeType.hashCode ^
-      const DeepCollectionEquality().hash(additionalRequestKey);
+  int get hashCode => Object.hash(runtimeType, additionalRequestKey);
 
   @JsonKey(ignore: true)
   @override
@@ -181,6 +197,17 @@ class _$AdditionalDataStateFixed extends AdditionalDataStateFixed {
         error,
   }) {
     return fixed(additionalRequestKey);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult Function(String additionalRequestKey)? fixed,
+    TResult Function()? fixedWithNoMoreAdditionalData,
+    TResult Function(String additionalRequestKey)? loading,
+    TResult Function(String additionalRequestKey, Exception exception)? error,
+  }) {
+    return fixed?.call(additionalRequestKey);
   }
 
   @override
@@ -213,6 +240,18 @@ class _$AdditionalDataStateFixed extends AdditionalDataStateFixed {
 
   @override
   @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult Function(AdditionalDataStateFixed value)? fixed,
+    TResult Function(AdditionalDataStateFixedWithNoMoreAdditionalData value)?
+        fixedWithNoMoreAdditionalData,
+    TResult Function(AdditionalDataStateLoading value)? loading,
+    TResult Function(AdditionalDataStateError value)? error,
+  }) {
+    return fixed?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(AdditionalDataStateFixed value)? fixed,
     TResult Function(AdditionalDataStateFixedWithNoMoreAdditionalData value)?
@@ -233,7 +272,7 @@ abstract class AdditionalDataStateFixed extends AdditionalDataState {
       {required String additionalRequestKey}) = _$AdditionalDataStateFixed;
   const AdditionalDataStateFixed._() : super._();
 
-  String get additionalRequestKey => throw _privateConstructorUsedError;
+  String get additionalRequestKey;
   @JsonKey(ignore: true)
   $AdditionalDataStateFixedCopyWith<AdditionalDataStateFixed> get copyWith =>
       throw _privateConstructorUsedError;
@@ -279,7 +318,8 @@ class _$AdditionalDataStateFixedWithNoMoreAdditionalData
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other is AdditionalDataStateFixedWithNoMoreAdditionalData);
+        (other.runtimeType == runtimeType &&
+            other is AdditionalDataStateFixedWithNoMoreAdditionalData);
   }
 
   @override
@@ -295,6 +335,17 @@ class _$AdditionalDataStateFixedWithNoMoreAdditionalData
         error,
   }) {
     return fixedWithNoMoreAdditionalData();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult Function(String additionalRequestKey)? fixed,
+    TResult Function()? fixedWithNoMoreAdditionalData,
+    TResult Function(String additionalRequestKey)? loading,
+    TResult Function(String additionalRequestKey, Exception exception)? error,
+  }) {
+    return fixedWithNoMoreAdditionalData?.call();
   }
 
   @override
@@ -323,6 +374,18 @@ class _$AdditionalDataStateFixedWithNoMoreAdditionalData
     required TResult Function(AdditionalDataStateError value) error,
   }) {
     return fixedWithNoMoreAdditionalData(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult Function(AdditionalDataStateFixed value)? fixed,
+    TResult Function(AdditionalDataStateFixedWithNoMoreAdditionalData value)?
+        fixedWithNoMoreAdditionalData,
+    TResult Function(AdditionalDataStateLoading value)? loading,
+    TResult Function(AdditionalDataStateError value)? error,
+  }) {
+    return fixedWithNoMoreAdditionalData?.call(this);
   }
 
   @override
@@ -399,16 +462,14 @@ class _$AdditionalDataStateLoading extends AdditionalDataStateLoading {
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other is AdditionalDataStateLoading &&
+        (other.runtimeType == runtimeType &&
+            other is AdditionalDataStateLoading &&
             (identical(other.additionalRequestKey, additionalRequestKey) ||
-                const DeepCollectionEquality()
-                    .equals(other.additionalRequestKey, additionalRequestKey)));
+                other.additionalRequestKey == additionalRequestKey));
   }
 
   @override
-  int get hashCode =>
-      runtimeType.hashCode ^
-      const DeepCollectionEquality().hash(additionalRequestKey);
+  int get hashCode => Object.hash(runtimeType, additionalRequestKey);
 
   @JsonKey(ignore: true)
   @override
@@ -427,6 +488,17 @@ class _$AdditionalDataStateLoading extends AdditionalDataStateLoading {
         error,
   }) {
     return loading(additionalRequestKey);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult Function(String additionalRequestKey)? fixed,
+    TResult Function()? fixedWithNoMoreAdditionalData,
+    TResult Function(String additionalRequestKey)? loading,
+    TResult Function(String additionalRequestKey, Exception exception)? error,
+  }) {
+    return loading?.call(additionalRequestKey);
   }
 
   @override
@@ -459,6 +531,18 @@ class _$AdditionalDataStateLoading extends AdditionalDataStateLoading {
 
   @override
   @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult Function(AdditionalDataStateFixed value)? fixed,
+    TResult Function(AdditionalDataStateFixedWithNoMoreAdditionalData value)?
+        fixedWithNoMoreAdditionalData,
+    TResult Function(AdditionalDataStateLoading value)? loading,
+    TResult Function(AdditionalDataStateError value)? error,
+  }) {
+    return loading?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(AdditionalDataStateFixed value)? fixed,
     TResult Function(AdditionalDataStateFixedWithNoMoreAdditionalData value)?
@@ -479,7 +563,7 @@ abstract class AdditionalDataStateLoading extends AdditionalDataState {
       {required String additionalRequestKey}) = _$AdditionalDataStateLoading;
   const AdditionalDataStateLoading._() : super._();
 
-  String get additionalRequestKey => throw _privateConstructorUsedError;
+  String get additionalRequestKey;
   @JsonKey(ignore: true)
   $AdditionalDataStateLoadingCopyWith<AdditionalDataStateLoading>
       get copyWith => throw _privateConstructorUsedError;
@@ -543,20 +627,16 @@ class _$AdditionalDataStateError extends AdditionalDataStateError {
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other is AdditionalDataStateError &&
+        (other.runtimeType == runtimeType &&
+            other is AdditionalDataStateError &&
             (identical(other.additionalRequestKey, additionalRequestKey) ||
-                const DeepCollectionEquality().equals(
-                    other.additionalRequestKey, additionalRequestKey)) &&
+                other.additionalRequestKey == additionalRequestKey) &&
             (identical(other.exception, exception) ||
-                const DeepCollectionEquality()
-                    .equals(other.exception, exception)));
+                other.exception == exception));
   }
 
   @override
-  int get hashCode =>
-      runtimeType.hashCode ^
-      const DeepCollectionEquality().hash(additionalRequestKey) ^
-      const DeepCollectionEquality().hash(exception);
+  int get hashCode => Object.hash(runtimeType, additionalRequestKey, exception);
 
   @JsonKey(ignore: true)
   @override
@@ -574,6 +654,17 @@ class _$AdditionalDataStateError extends AdditionalDataStateError {
         error,
   }) {
     return error(additionalRequestKey, exception);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult Function(String additionalRequestKey)? fixed,
+    TResult Function()? fixedWithNoMoreAdditionalData,
+    TResult Function(String additionalRequestKey)? loading,
+    TResult Function(String additionalRequestKey, Exception exception)? error,
+  }) {
+    return error?.call(additionalRequestKey, exception);
   }
 
   @override
@@ -606,6 +697,18 @@ class _$AdditionalDataStateError extends AdditionalDataStateError {
 
   @override
   @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult Function(AdditionalDataStateFixed value)? fixed,
+    TResult Function(AdditionalDataStateFixedWithNoMoreAdditionalData value)?
+        fixedWithNoMoreAdditionalData,
+    TResult Function(AdditionalDataStateLoading value)? loading,
+    TResult Function(AdditionalDataStateError value)? error,
+  }) {
+    return error?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(AdditionalDataStateFixed value)? fixed,
     TResult Function(AdditionalDataStateFixedWithNoMoreAdditionalData value)?
@@ -627,8 +730,8 @@ abstract class AdditionalDataStateError extends AdditionalDataState {
       required Exception exception}) = _$AdditionalDataStateError;
   const AdditionalDataStateError._() : super._();
 
-  String get additionalRequestKey => throw _privateConstructorUsedError;
-  Exception get exception => throw _privateConstructorUsedError;
+  String get additionalRequestKey;
+  Exception get exception;
   @JsonKey(ignore: true)
   $AdditionalDataStateErrorCopyWith<AdditionalDataStateError> get copyWith =>
       throw _privateConstructorUsedError;
