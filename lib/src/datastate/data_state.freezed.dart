@@ -1,3 +1,4 @@
+// coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target
 
@@ -51,6 +52,15 @@ mixin _$DataState {
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult Function(AdditionalDataState nextDataState,
+            AdditionalDataState prevDataState)?
+        fixed,
+    TResult Function()? loading,
+    TResult Function(Exception exception)? error,
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(AdditionalDataState nextDataState,
             AdditionalDataState prevDataState)?
@@ -65,6 +75,13 @@ mixin _$DataState {
     required TResult Function(DataStateFixed value) fixed,
     required TResult Function(DataStateLoading value) loading,
     required TResult Function(DataStateError value) error,
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult Function(DataStateFixed value)? fixed,
+    TResult Function(DataStateLoading value)? loading,
+    TResult Function(DataStateError value)? error,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -166,20 +183,16 @@ class _$DataStateFixed extends DataStateFixed {
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other is DataStateFixed &&
+        (other.runtimeType == runtimeType &&
+            other is DataStateFixed &&
             (identical(other.nextDataState, nextDataState) ||
-                const DeepCollectionEquality()
-                    .equals(other.nextDataState, nextDataState)) &&
+                other.nextDataState == nextDataState) &&
             (identical(other.prevDataState, prevDataState) ||
-                const DeepCollectionEquality()
-                    .equals(other.prevDataState, prevDataState)));
+                other.prevDataState == prevDataState));
   }
 
   @override
-  int get hashCode =>
-      runtimeType.hashCode ^
-      const DeepCollectionEquality().hash(nextDataState) ^
-      const DeepCollectionEquality().hash(prevDataState);
+  int get hashCode => Object.hash(runtimeType, nextDataState, prevDataState);
 
   @JsonKey(ignore: true)
   @override
@@ -196,6 +209,18 @@ class _$DataStateFixed extends DataStateFixed {
     required TResult Function(Exception exception) error,
   }) {
     return fixed(nextDataState, prevDataState);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult Function(AdditionalDataState nextDataState,
+            AdditionalDataState prevDataState)?
+        fixed,
+    TResult Function()? loading,
+    TResult Function(Exception exception)? error,
+  }) {
+    return fixed?.call(nextDataState, prevDataState);
   }
 
   @override
@@ -226,6 +251,16 @@ class _$DataStateFixed extends DataStateFixed {
 
   @override
   @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult Function(DataStateFixed value)? fixed,
+    TResult Function(DataStateLoading value)? loading,
+    TResult Function(DataStateError value)? error,
+  }) {
+    return fixed?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(DataStateFixed value)? fixed,
     TResult Function(DataStateLoading value)? loading,
@@ -245,8 +280,8 @@ abstract class DataStateFixed extends DataState {
       required AdditionalDataState prevDataState}) = _$DataStateFixed;
   const DataStateFixed._() : super._();
 
-  AdditionalDataState get nextDataState => throw _privateConstructorUsedError;
-  AdditionalDataState get prevDataState => throw _privateConstructorUsedError;
+  AdditionalDataState get nextDataState;
+  AdditionalDataState get prevDataState;
   @JsonKey(ignore: true)
   $DataStateFixedCopyWith<DataStateFixed> get copyWith =>
       throw _privateConstructorUsedError;
@@ -282,7 +317,8 @@ class _$DataStateLoading extends DataStateLoading {
 
   @override
   bool operator ==(dynamic other) {
-    return identical(this, other) || (other is DataStateLoading);
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is DataStateLoading);
   }
 
   @override
@@ -298,6 +334,18 @@ class _$DataStateLoading extends DataStateLoading {
     required TResult Function(Exception exception) error,
   }) {
     return loading();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult Function(AdditionalDataState nextDataState,
+            AdditionalDataState prevDataState)?
+        fixed,
+    TResult Function()? loading,
+    TResult Function(Exception exception)? error,
+  }) {
+    return loading?.call();
   }
 
   @override
@@ -324,6 +372,16 @@ class _$DataStateLoading extends DataStateLoading {
     required TResult Function(DataStateError value) error,
   }) {
     return loading(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult Function(DataStateFixed value)? fixed,
+    TResult Function(DataStateLoading value)? loading,
+    TResult Function(DataStateError value)? error,
+  }) {
+    return loading?.call(this);
   }
 
   @override
@@ -393,15 +451,14 @@ class _$DataStateError extends DataStateError {
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other is DataStateError &&
+        (other.runtimeType == runtimeType &&
+            other is DataStateError &&
             (identical(other.exception, exception) ||
-                const DeepCollectionEquality()
-                    .equals(other.exception, exception)));
+                other.exception == exception));
   }
 
   @override
-  int get hashCode =>
-      runtimeType.hashCode ^ const DeepCollectionEquality().hash(exception);
+  int get hashCode => Object.hash(runtimeType, exception);
 
   @JsonKey(ignore: true)
   @override
@@ -418,6 +475,18 @@ class _$DataStateError extends DataStateError {
     required TResult Function(Exception exception) error,
   }) {
     return error(exception);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult Function(AdditionalDataState nextDataState,
+            AdditionalDataState prevDataState)?
+        fixed,
+    TResult Function()? loading,
+    TResult Function(Exception exception)? error,
+  }) {
+    return error?.call(exception);
   }
 
   @override
@@ -448,6 +517,16 @@ class _$DataStateError extends DataStateError {
 
   @override
   @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult Function(DataStateFixed value)? fixed,
+    TResult Function(DataStateLoading value)? loading,
+    TResult Function(DataStateError value)? error,
+  }) {
+    return error?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(DataStateFixed value)? fixed,
     TResult Function(DataStateLoading value)? loading,
@@ -466,7 +545,7 @@ abstract class DataStateError extends DataState {
       _$DataStateError;
   const DataStateError._() : super._();
 
-  Exception get exception => throw _privateConstructorUsedError;
+  Exception get exception;
   @JsonKey(ignore: true)
   $DataStateErrorCopyWith<DataStateError> get copyWith =>
       throw _privateConstructorUsedError;

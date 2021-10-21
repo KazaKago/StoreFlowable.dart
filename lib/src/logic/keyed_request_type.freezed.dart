@@ -1,3 +1,4 @@
+// coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target
 
@@ -46,6 +47,13 @@ mixin _$KeyedRequestType {
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult Function()? refresh,
+    TResult Function(String requestKey)? next,
+    TResult Function(String requestKey)? prev,
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? refresh,
     TResult Function(String requestKey)? next,
@@ -58,6 +66,13 @@ mixin _$KeyedRequestType {
     required TResult Function(_Refresh value) refresh,
     required TResult Function(_Next value) next,
     required TResult Function(_Prev value) prev,
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult Function(_Refresh value)? refresh,
+    TResult Function(_Next value)? next,
+    TResult Function(_Prev value)? prev,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -115,7 +130,8 @@ class _$_Refresh implements _Refresh {
 
   @override
   bool operator ==(dynamic other) {
-    return identical(this, other) || (other is _Refresh);
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is _Refresh);
   }
 
   @override
@@ -129,6 +145,16 @@ class _$_Refresh implements _Refresh {
     required TResult Function(String requestKey) prev,
   }) {
     return refresh();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult Function()? refresh,
+    TResult Function(String requestKey)? next,
+    TResult Function(String requestKey)? prev,
+  }) {
+    return refresh?.call();
   }
 
   @override
@@ -153,6 +179,16 @@ class _$_Refresh implements _Refresh {
     required TResult Function(_Prev value) prev,
   }) {
     return refresh(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult Function(_Refresh value)? refresh,
+    TResult Function(_Next value)? next,
+    TResult Function(_Prev value)? prev,
+  }) {
+    return refresh?.call(this);
   }
 
   @override
@@ -219,15 +255,14 @@ class _$_Next implements _Next {
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other is _Next &&
+        (other.runtimeType == runtimeType &&
+            other is _Next &&
             (identical(other.requestKey, requestKey) ||
-                const DeepCollectionEquality()
-                    .equals(other.requestKey, requestKey)));
+                other.requestKey == requestKey));
   }
 
   @override
-  int get hashCode =>
-      runtimeType.hashCode ^ const DeepCollectionEquality().hash(requestKey);
+  int get hashCode => Object.hash(runtimeType, requestKey);
 
   @JsonKey(ignore: true)
   @override
@@ -242,6 +277,16 @@ class _$_Next implements _Next {
     required TResult Function(String requestKey) prev,
   }) {
     return next(requestKey);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult Function()? refresh,
+    TResult Function(String requestKey)? next,
+    TResult Function(String requestKey)? prev,
+  }) {
+    return next?.call(requestKey);
   }
 
   @override
@@ -270,6 +315,16 @@ class _$_Next implements _Next {
 
   @override
   @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult Function(_Refresh value)? refresh,
+    TResult Function(_Next value)? next,
+    TResult Function(_Prev value)? prev,
+  }) {
+    return next?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Refresh value)? refresh,
     TResult Function(_Next value)? next,
@@ -286,7 +341,7 @@ class _$_Next implements _Next {
 abstract class _Next implements KeyedRequestType {
   const factory _Next(String requestKey) = _$_Next;
 
-  String get requestKey => throw _privateConstructorUsedError;
+  String get requestKey;
   @JsonKey(ignore: true)
   _$NextCopyWith<_Next> get copyWith => throw _privateConstructorUsedError;
 }
@@ -336,15 +391,14 @@ class _$_Prev implements _Prev {
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other is _Prev &&
+        (other.runtimeType == runtimeType &&
+            other is _Prev &&
             (identical(other.requestKey, requestKey) ||
-                const DeepCollectionEquality()
-                    .equals(other.requestKey, requestKey)));
+                other.requestKey == requestKey));
   }
 
   @override
-  int get hashCode =>
-      runtimeType.hashCode ^ const DeepCollectionEquality().hash(requestKey);
+  int get hashCode => Object.hash(runtimeType, requestKey);
 
   @JsonKey(ignore: true)
   @override
@@ -359,6 +413,16 @@ class _$_Prev implements _Prev {
     required TResult Function(String requestKey) prev,
   }) {
     return prev(requestKey);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult Function()? refresh,
+    TResult Function(String requestKey)? next,
+    TResult Function(String requestKey)? prev,
+  }) {
+    return prev?.call(requestKey);
   }
 
   @override
@@ -387,6 +451,16 @@ class _$_Prev implements _Prev {
 
   @override
   @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult Function(_Refresh value)? refresh,
+    TResult Function(_Next value)? next,
+    TResult Function(_Prev value)? prev,
+  }) {
+    return prev?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Refresh value)? refresh,
     TResult Function(_Next value)? next,
@@ -403,7 +477,7 @@ class _$_Prev implements _Prev {
 abstract class _Prev implements KeyedRequestType {
   const factory _Prev(String requestKey) = _$_Prev;
 
-  String get requestKey => throw _privateConstructorUsedError;
+  String get requestKey;
   @JsonKey(ignore: true)
   _$PrevCopyWith<_Prev> get copyWith => throw _privateConstructorUsedError;
 }

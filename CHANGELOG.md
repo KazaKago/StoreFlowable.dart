@@ -1,3 +1,7 @@
+## 0.2.3
+
+bugfix & update dependencies.
+
 ## 0.2.2
 
 bugfix & update dependencies.
