@@ -5,33 +5,33 @@ import 'package:store_flowable/src/origin/internal_fetched.dart';
 import 'package:store_flowable/src/pagination/twoway/two_way_pagination_store_flowable.dart';
 import 'package:store_flowable/src/pagination/twoway/two_way_pagination_store_flowable_factory.dart';
 
-extension TwoWayPaginatingStoreFlowableExtension<KEY, DATA> on TwoWayPaginationStoreFlowableFactory<KEY, DATA> {
+extension TwoWayPaginatingStoreFlowableExtension<KEY, DATA, PARAM> on TwoWayPaginationStoreFlowableFactory<KEY, DATA, PARAM> {
   // ignore: use_to_and_as_if_applicable
-  TwoWayPaginationStoreFlowable<KEY, DATA> create() {
+  TwoWayPaginationStoreFlowable<KEY, DATA> create(final PARAM param) {
     return StoreFlowableImpl(
-      key: getKey(),
-      flowableDataStateManager: getFlowableDataStateManager(),
+      key: getKey(param),
+      flowableDataStateManager: getFlowableDataStateManager(param),
       cacheDataManager: AnyCacheDataManager(
-        loadFunc: loadDataFromCache,
-        saveFunc: saveDataToCache,
-        saveNextFunc: saveNextDataToCache,
-        savePrevFunc: savePrevDataToCache,
+        loadFunc: () => loadDataFromCache(param),
+        saveFunc: (newData) => saveDataToCache(newData, param),
+        saveNextFunc: (cachedData, newData) => saveNextDataToCache(cachedData, newData, param),
+        savePrevFunc: (cachedData, newData) => savePrevDataToCache(cachedData, newData, param),
       ),
       originDataManager: AnyOriginDataManager(
         fetchFunc: () async {
-          final result = await fetchDataFromOrigin();
+          final result = await fetchDataFromOrigin(param);
           return InternalFetched(data: result.data, nextKey: result.nextKey, prevKey: result.prevKey);
         },
         fetchNextFunc: (nextKey) async {
-          final result = await fetchNextDataFromOrigin(nextKey);
+          final result = await fetchNextDataFromOrigin(nextKey, param);
           return InternalFetched(data: result.data, nextKey: result.nextKey, prevKey: null);
         },
         fetchPrevFunc: (prevKey) async {
-          final result = await fetchPrevDataFromOrigin(prevKey);
+          final result = await fetchPrevDataFromOrigin(prevKey, param);
           return InternalFetched(data: result.data, nextKey: null, prevKey: result.prevKey);
         },
       ),
-      needRefresh: needRefresh,
+      needRefresh: (cachedData) => needRefresh(cachedData, param),
     );
   }
 }

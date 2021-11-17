@@ -1,3 +1,8 @@
+## 0.3.0
+
+add `param` in StoreFlowableFactory.create() method.
+and add param in StoreFlowableFactory methods.
+
 ## 0.2.4
 
 revert interface.
