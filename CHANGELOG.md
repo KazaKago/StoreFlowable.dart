@@ -1,3 +1,7 @@
+## 0.2.4
+
+revert interface.
+
 ## 0.2.3
 
 bugfix & update dependencies.
