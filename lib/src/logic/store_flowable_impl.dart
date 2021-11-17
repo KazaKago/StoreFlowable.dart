@@ -1,3 +1,4 @@
+import 'package:rxdart/rxdart.dart';
 import 'package:store_flowable/src/cache/cache_data_manager.dart';
 import 'package:store_flowable/src/core/loading_state_stream.dart';
 import 'package:store_flowable/src/datastate/data_state.dart';
@@ -36,13 +37,18 @@ class StoreFlowableImpl<KEY, DATA> implements StoreFlowable<KEY, DATA>, Paginati
   final DataSelector<KEY, DATA> _dataSelector;
 
   @override
-  Future<LoadingStateStream<DATA>> publish({final bool forceRefresh = false}) async {
-    if (forceRefresh) {
-      await _dataSelector.refreshAsync(clearCacheBeforeFetching: true);
-    } else {
-      await _dataSelector.validateAsync();
-    }
-    return _flowableDataStateManager.getFlow(_key).asyncMap((dataState) async {
+  LoadingStateStream<DATA> publish({final bool forceRefresh = false}) {
+    var isFinishValidation = false;
+    return _flowableDataStateManager.getFlow(_key).doOnListen(() async {
+      if (forceRefresh) {
+        await _dataSelector.refreshAsync(clearCacheBeforeFetching: true);
+      } else {
+        await _dataSelector.validateAsync();
+      }
+      isFinishValidation = true;
+    }).asyncExpand((event) async* {
+      if (isFinishValidation) yield event;
+    }).asyncMap((dataState) async {
       final data = await _cacheDataManager.load();
       return dataState.toLoadingState(data);
     });

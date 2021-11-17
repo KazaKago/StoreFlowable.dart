@@ -2,7 +2,7 @@ import 'package:store_flowable/src/core/loading_state_stream.dart';
 import 'package:store_flowable/src/getting_from.dart';
 
 abstract class StoreFlowable<KEY, DATA> {
-  Future<LoadingStateStream<DATA>> publish({final bool forceRefresh});
+  LoadingStateStream<DATA> publish({final bool forceRefresh});
 
   Future<DATA?> getData({final GettingFrom from});
 
