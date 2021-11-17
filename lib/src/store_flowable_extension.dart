@@ -5,27 +5,27 @@ import 'package:store_flowable/src/origin/internal_fetched.dart';
 import 'package:store_flowable/src/store_flowable.dart';
 import 'package:store_flowable/src/store_flowable_factory.dart';
 
-extension StoreFlowableExtension<KEY, DATA> on StoreFlowableFactory<KEY, DATA> {
+extension StoreFlowableExtension<KEY, DATA, PARAM> on StoreFlowableFactory<KEY, DATA, PARAM> {
   // ignore: use_to_and_as_if_applicable
-  StoreFlowable<KEY, DATA> create() {
+  StoreFlowable<KEY, DATA> create(final PARAM param) {
     return StoreFlowableImpl(
-      key: getKey(),
-      flowableDataStateManager: getFlowableDataStateManager(),
+      key: getKey(param),
+      flowableDataStateManager: getFlowableDataStateManager(param),
       cacheDataManager: AnyCacheDataManager(
-        loadFunc: loadDataFromCache,
-        saveFunc: saveDataToCache,
+        loadFunc: () => loadDataFromCache(param),
+        saveFunc: (newData) => saveDataToCache(newData, param),
         saveNextFunc: (cachedData, newData) => throw UnimplementedError(),
         savePrevFunc: (cachedData, newData) => throw UnimplementedError(),
       ),
       originDataManager: AnyOriginDataManager(
         fetchFunc: () async {
-          final data = await fetchDataFromOrigin();
+          final data = await fetchDataFromOrigin(param);
           return InternalFetched(data: data, nextKey: null, prevKey: null);
         },
         fetchNextFunc: (nextKey) => throw UnimplementedError(),
         fetchPrevFunc: (prevKey) => throw UnimplementedError(),
       ),
-      needRefresh: needRefresh,
+      needRefresh: (cachedData) => needRefresh(cachedData, param),
     );
   }
 }

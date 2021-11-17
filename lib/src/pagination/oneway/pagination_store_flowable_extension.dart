@@ -5,30 +5,30 @@ import 'package:store_flowable/src/origin/internal_fetched.dart';
 import 'package:store_flowable/src/pagination/oneway/pagination_store_flowable.dart';
 import 'package:store_flowable/src/pagination/oneway/pagination_store_flowable_factory.dart';
 
-extension PaginatingStoreFlowableExtension<KEY, DATA> on PaginationStoreFlowableFactory<KEY, DATA> {
+extension PaginatingStoreFlowableExtension<KEY, DATA, PARAM> on PaginationStoreFlowableFactory<KEY, DATA, PARAM> {
   // ignore: use_to_and_as_if_applicable
-  PaginationStoreFlowable<KEY, DATA> create() {
+  PaginationStoreFlowable<KEY, DATA> create(final PARAM param) {
     return StoreFlowableImpl(
-      key: getKey(),
-      flowableDataStateManager: getFlowableDataStateManager(),
+      key: getKey(param),
+      flowableDataStateManager: getFlowableDataStateManager(param),
       cacheDataManager: AnyCacheDataManager(
-        loadFunc: loadDataFromCache,
-        saveFunc: saveDataToCache,
-        saveNextFunc: saveNextDataToCache,
+        loadFunc: () => loadDataFromCache(param),
+        saveFunc: (newData) => saveDataToCache(newData, param),
+        saveNextFunc: (cachedData, newData) => saveNextDataToCache(cachedData, newData, param),
         savePrevFunc: (cachedData, newData) => throw UnimplementedError(),
       ),
       originDataManager: AnyOriginDataManager(
         fetchFunc: () async {
-          final result = await fetchDataFromOrigin();
+          final result = await fetchDataFromOrigin(param);
           return InternalFetched(data: result.data, nextKey: result.nextKey, prevKey: null);
         },
         fetchNextFunc: (nextKey) async {
-          final result = await fetchNextDataFromOrigin(nextKey);
+          final result = await fetchNextDataFromOrigin(nextKey, param);
           return InternalFetched(data: result.data, nextKey: result.nextKey, prevKey: null);
         },
         fetchPrevFunc: (prevKey) => throw UnimplementedError(),
       ),
-      needRefresh: needRefresh,
+      needRefresh: (cachedData) => needRefresh(cachedData, param),
     );
   }
 }
