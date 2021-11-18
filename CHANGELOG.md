@@ -1,3 +1,7 @@
+## 0.4.0
+
+merge PARAM & KEY generics.
+
 ## 0.3.0
 
 add `param` in StoreFlowableFactory.create() method.

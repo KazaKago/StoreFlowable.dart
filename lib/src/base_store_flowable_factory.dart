@@ -1,9 +1,7 @@
 import 'package:store_flowable/src/flowable_data_state_manager.dart';
 
-abstract class BaseStoreFlowableFactory<KEY, DATA, PARAM> {
-  KEY getKey(final PARAM param);
-
-  FlowableDataStateManager<KEY> getFlowableDataStateManager(final PARAM param);
+abstract class BaseStoreFlowableFactory<PARAM, DATA> {
+  FlowableDataStateManager<PARAM> getFlowableDataStateManager();
 
   Future<DATA?> loadDataFromCache(final PARAM param);
 
