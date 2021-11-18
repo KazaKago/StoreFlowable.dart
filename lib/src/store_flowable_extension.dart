@@ -5,12 +5,12 @@ import 'package:store_flowable/src/origin/internal_fetched.dart';
 import 'package:store_flowable/src/store_flowable.dart';
 import 'package:store_flowable/src/store_flowable_factory.dart';
 
-extension StoreFlowableExtension<KEY, DATA, PARAM> on StoreFlowableFactory<KEY, DATA, PARAM> {
+extension StoreFlowableExtension<PARAM, DATA> on StoreFlowableFactory<PARAM, DATA> {
   // ignore: use_to_and_as_if_applicable
-  StoreFlowable<KEY, DATA> create(final PARAM param) {
+  StoreFlowable<PARAM, DATA> create(final PARAM param) {
     return StoreFlowableImpl(
-      key: getKey(param),
-      flowableDataStateManager: getFlowableDataStateManager(param),
+      key: param,
+      flowableDataStateManager: getFlowableDataStateManager(),
       cacheDataManager: AnyCacheDataManager(
         loadFunc: () => loadDataFromCache(param),
         saveFunc: (newData) => saveDataToCache(newData, param),

@@ -5,12 +5,12 @@ import 'package:store_flowable/src/origin/internal_fetched.dart';
 import 'package:store_flowable/src/pagination/twoway/two_way_pagination_store_flowable.dart';
 import 'package:store_flowable/src/pagination/twoway/two_way_pagination_store_flowable_factory.dart';
 
-extension TwoWayPaginatingStoreFlowableExtension<KEY, DATA, PARAM> on TwoWayPaginationStoreFlowableFactory<KEY, DATA, PARAM> {
+extension TwoWayPaginatingStoreFlowableExtension<PARAM, DATA> on TwoWayPaginationStoreFlowableFactory<PARAM, DATA> {
   // ignore: use_to_and_as_if_applicable
-  TwoWayPaginationStoreFlowable<KEY, DATA> create(final PARAM param) {
+  TwoWayPaginationStoreFlowable<PARAM, DATA> create(final PARAM param) {
     return StoreFlowableImpl(
-      key: getKey(param),
-      flowableDataStateManager: getFlowableDataStateManager(param),
+      key: param,
+      flowableDataStateManager: getFlowableDataStateManager(),
       cacheDataManager: AnyCacheDataManager(
         loadFunc: () => loadDataFromCache(param),
         saveFunc: (newData) => saveDataToCache(newData, param),

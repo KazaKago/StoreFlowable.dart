@@ -5,12 +5,12 @@ import 'package:store_flowable/src/origin/internal_fetched.dart';
 import 'package:store_flowable/src/pagination/oneway/pagination_store_flowable.dart';
 import 'package:store_flowable/src/pagination/oneway/pagination_store_flowable_factory.dart';
 
-extension PaginatingStoreFlowableExtension<KEY, DATA, PARAM> on PaginationStoreFlowableFactory<KEY, DATA, PARAM> {
+extension PaginatingStoreFlowableExtension<PARAM, DATA> on PaginationStoreFlowableFactory<PARAM, DATA> {
   // ignore: use_to_and_as_if_applicable
-  PaginationStoreFlowable<KEY, DATA> create(final PARAM param) {
+  PaginationStoreFlowable<PARAM, DATA> create(final PARAM param) {
     return StoreFlowableImpl(
-      key: getKey(param),
-      flowableDataStateManager: getFlowableDataStateManager(param),
+      key: param,
+      flowableDataStateManager: getFlowableDataStateManager(),
       cacheDataManager: AnyCacheDataManager(
         loadFunc: () => loadDataFromCache(param),
         saveFunc: (newData) => saveDataToCache(newData, param),
