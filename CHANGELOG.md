@@ -1,3 +1,7 @@
+## 0.4.2
+
+bugfix
+
 ## 0.4.1
 
 fix twice notification on listen.
