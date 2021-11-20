@@ -38,19 +38,16 @@ class StoreFlowableImpl<KEY, DATA> implements StoreFlowable<KEY, DATA>, Paginati
 
   @override
   LoadingStateStream<DATA> publish({final bool forceRefresh = false}) {
-    var isFinishValidation = false;
-    return _flowableDataStateManager.getFlow(_key).doOnListen(() async {
+    return _flowableDataStateManager.getFlow(_key).doOnListen(() {
       if (forceRefresh) {
-        await _dataSelector.refreshAsync(clearCacheBeforeFetching: true);
+        _dataSelector.refresh(clearCacheBeforeFetching: true);
       } else {
-        await _dataSelector.validateAsync();
+        _dataSelector.validate();
       }
-      isFinishValidation = true;
-    }).asyncExpand((event) async* {
-      if (isFinishValidation) yield event;
-    }).asyncMap((dataState) async {
+    }).asyncExpand((dataState) async* {
       final data = await _cacheDataManager.load();
-      return dataState.toLoadingState(data);
+      final state = dataState.toLoadingState(data);
+      if (state != null) yield state;
     });
   }
 

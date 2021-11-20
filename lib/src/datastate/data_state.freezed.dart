@@ -17,6 +17,10 @@ final _privateConstructorUsedError = UnsupportedError(
 class _$DataStateTearOff {
   const _$DataStateTearOff();
 
+  DataStateInitial initial() {
+    return const DataStateInitial();
+  }
+
   DataStateFixed fixed(
       {required AdditionalDataState nextDataState,
       required AdditionalDataState prevDataState}) {
@@ -44,6 +48,7 @@ const $DataState = _$DataStateTearOff();
 mixin _$DataState {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
+    required TResult Function() initial,
     required TResult Function(AdditionalDataState nextDataState,
             AdditionalDataState prevDataState)
         fixed,
@@ -53,6 +58,7 @@ mixin _$DataState {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
+    TResult Function()? initial,
     TResult Function(AdditionalDataState nextDataState,
             AdditionalDataState prevDataState)?
         fixed,
@@ -62,6 +68,7 @@ mixin _$DataState {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? initial,
     TResult Function(AdditionalDataState nextDataState,
             AdditionalDataState prevDataState)?
         fixed,
@@ -72,6 +79,7 @@ mixin _$DataState {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
+    required TResult Function(DataStateInitial value) initial,
     required TResult Function(DataStateFixed value) fixed,
     required TResult Function(DataStateLoading value) loading,
     required TResult Function(DataStateError value) error,
@@ -79,6 +87,7 @@ mixin _$DataState {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
+    TResult Function(DataStateInitial value)? initial,
     TResult Function(DataStateFixed value)? fixed,
     TResult Function(DataStateLoading value)? loading,
     TResult Function(DataStateError value)? error,
@@ -86,6 +95,7 @@ mixin _$DataState {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
+    TResult Function(DataStateInitial value)? initial,
     TResult Function(DataStateFixed value)? fixed,
     TResult Function(DataStateLoading value)? loading,
     TResult Function(DataStateError value)? error,
@@ -107,6 +117,129 @@ class _$DataStateCopyWithImpl<$Res> implements $DataStateCopyWith<$Res> {
   final DataState _value;
   // ignore: unused_field
   final $Res Function(DataState) _then;
+}
+
+/// @nodoc
+abstract class $DataStateInitialCopyWith<$Res> {
+  factory $DataStateInitialCopyWith(
+          DataStateInitial value, $Res Function(DataStateInitial) then) =
+      _$DataStateInitialCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class _$DataStateInitialCopyWithImpl<$Res> extends _$DataStateCopyWithImpl<$Res>
+    implements $DataStateInitialCopyWith<$Res> {
+  _$DataStateInitialCopyWithImpl(
+      DataStateInitial _value, $Res Function(DataStateInitial) _then)
+      : super(_value, (v) => _then(v as DataStateInitial));
+
+  @override
+  DataStateInitial get _value => super._value as DataStateInitial;
+}
+
+/// @nodoc
+
+class _$DataStateInitial extends DataStateInitial {
+  const _$DataStateInitial() : super._();
+
+  @override
+  String toString() {
+    return 'DataState.initial()';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is DataStateInitial);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() initial,
+    required TResult Function(AdditionalDataState nextDataState,
+            AdditionalDataState prevDataState)
+        fixed,
+    required TResult Function() loading,
+    required TResult Function(Exception exception) error,
+  }) {
+    return initial();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult Function()? initial,
+    TResult Function(AdditionalDataState nextDataState,
+            AdditionalDataState prevDataState)?
+        fixed,
+    TResult Function()? loading,
+    TResult Function(Exception exception)? error,
+  }) {
+    return initial?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? initial,
+    TResult Function(AdditionalDataState nextDataState,
+            AdditionalDataState prevDataState)?
+        fixed,
+    TResult Function()? loading,
+    TResult Function(Exception exception)? error,
+    required TResult orElse(),
+  }) {
+    if (initial != null) {
+      return initial();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(DataStateInitial value) initial,
+    required TResult Function(DataStateFixed value) fixed,
+    required TResult Function(DataStateLoading value) loading,
+    required TResult Function(DataStateError value) error,
+  }) {
+    return initial(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult Function(DataStateInitial value)? initial,
+    TResult Function(DataStateFixed value)? fixed,
+    TResult Function(DataStateLoading value)? loading,
+    TResult Function(DataStateError value)? error,
+  }) {
+    return initial?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(DataStateInitial value)? initial,
+    TResult Function(DataStateFixed value)? fixed,
+    TResult Function(DataStateLoading value)? loading,
+    TResult Function(DataStateError value)? error,
+    required TResult orElse(),
+  }) {
+    if (initial != null) {
+      return initial(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class DataStateInitial extends DataState {
+  const factory DataStateInitial() = _$DataStateInitial;
+  const DataStateInitial._() : super._();
 }
 
 /// @nodoc
@@ -202,6 +335,7 @@ class _$DataStateFixed extends DataStateFixed {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
+    required TResult Function() initial,
     required TResult Function(AdditionalDataState nextDataState,
             AdditionalDataState prevDataState)
         fixed,
@@ -214,6 +348,7 @@ class _$DataStateFixed extends DataStateFixed {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
+    TResult Function()? initial,
     TResult Function(AdditionalDataState nextDataState,
             AdditionalDataState prevDataState)?
         fixed,
@@ -226,6 +361,7 @@ class _$DataStateFixed extends DataStateFixed {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? initial,
     TResult Function(AdditionalDataState nextDataState,
             AdditionalDataState prevDataState)?
         fixed,
@@ -242,6 +378,7 @@ class _$DataStateFixed extends DataStateFixed {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
+    required TResult Function(DataStateInitial value) initial,
     required TResult Function(DataStateFixed value) fixed,
     required TResult Function(DataStateLoading value) loading,
     required TResult Function(DataStateError value) error,
@@ -252,6 +389,7 @@ class _$DataStateFixed extends DataStateFixed {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
+    TResult Function(DataStateInitial value)? initial,
     TResult Function(DataStateFixed value)? fixed,
     TResult Function(DataStateLoading value)? loading,
     TResult Function(DataStateError value)? error,
@@ -262,6 +400,7 @@ class _$DataStateFixed extends DataStateFixed {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
+    TResult Function(DataStateInitial value)? initial,
     TResult Function(DataStateFixed value)? fixed,
     TResult Function(DataStateLoading value)? loading,
     TResult Function(DataStateError value)? error,
@@ -327,6 +466,7 @@ class _$DataStateLoading extends DataStateLoading {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
+    required TResult Function() initial,
     required TResult Function(AdditionalDataState nextDataState,
             AdditionalDataState prevDataState)
         fixed,
@@ -339,6 +479,7 @@ class _$DataStateLoading extends DataStateLoading {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
+    TResult Function()? initial,
     TResult Function(AdditionalDataState nextDataState,
             AdditionalDataState prevDataState)?
         fixed,
@@ -351,6 +492,7 @@ class _$DataStateLoading extends DataStateLoading {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? initial,
     TResult Function(AdditionalDataState nextDataState,
             AdditionalDataState prevDataState)?
         fixed,
@@ -367,6 +509,7 @@ class _$DataStateLoading extends DataStateLoading {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
+    required TResult Function(DataStateInitial value) initial,
     required TResult Function(DataStateFixed value) fixed,
     required TResult Function(DataStateLoading value) loading,
     required TResult Function(DataStateError value) error,
@@ -377,6 +520,7 @@ class _$DataStateLoading extends DataStateLoading {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
+    TResult Function(DataStateInitial value)? initial,
     TResult Function(DataStateFixed value)? fixed,
     TResult Function(DataStateLoading value)? loading,
     TResult Function(DataStateError value)? error,
@@ -387,6 +531,7 @@ class _$DataStateLoading extends DataStateLoading {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
+    TResult Function(DataStateInitial value)? initial,
     TResult Function(DataStateFixed value)? fixed,
     TResult Function(DataStateLoading value)? loading,
     TResult Function(DataStateError value)? error,
@@ -468,6 +613,7 @@ class _$DataStateError extends DataStateError {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
+    required TResult Function() initial,
     required TResult Function(AdditionalDataState nextDataState,
             AdditionalDataState prevDataState)
         fixed,
@@ -480,6 +626,7 @@ class _$DataStateError extends DataStateError {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
+    TResult Function()? initial,
     TResult Function(AdditionalDataState nextDataState,
             AdditionalDataState prevDataState)?
         fixed,
@@ -492,6 +639,7 @@ class _$DataStateError extends DataStateError {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? initial,
     TResult Function(AdditionalDataState nextDataState,
             AdditionalDataState prevDataState)?
         fixed,
@@ -508,6 +656,7 @@ class _$DataStateError extends DataStateError {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
+    required TResult Function(DataStateInitial value) initial,
     required TResult Function(DataStateFixed value) fixed,
     required TResult Function(DataStateLoading value) loading,
     required TResult Function(DataStateError value) error,
@@ -518,6 +667,7 @@ class _$DataStateError extends DataStateError {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
+    TResult Function(DataStateInitial value)? initial,
     TResult Function(DataStateFixed value)? fixed,
     TResult Function(DataStateLoading value)? loading,
     TResult Function(DataStateError value)? error,
@@ -528,6 +678,7 @@ class _$DataStateError extends DataStateError {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
+    TResult Function(DataStateInitial value)? initial,
     TResult Function(DataStateFixed value)? fixed,
     TResult Function(DataStateLoading value)? loading,
     TResult Function(DataStateError value)? error,
