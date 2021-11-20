@@ -53,59 +53,62 @@ class DataSelector<PARAM, DATA> {
   }
 
   Future<void> validate() async {
-    await _doStateAction(forceRefresh: false, clearCacheBeforeFetching: true, clearCacheWhenFetchFails: true, continueWhenError: true, awaitFetching: true, requestType: RequestType.refresh);
-  }
-
-  Future<void> validateAsync() async {
-    await _doStateAction(forceRefresh: false, clearCacheBeforeFetching: true, clearCacheWhenFetchFails: true, continueWhenError: true, awaitFetching: false, requestType: RequestType.refresh);
+    await _doStateAction(forceRefresh: false, clearCacheBeforeFetching: true, clearCacheWhenFetchFails: true, continueWhenError: true, requestType: RequestType.refresh);
   }
 
   Future<void> refresh({required final bool clearCacheBeforeFetching}) async {
-    await _doStateAction(forceRefresh: true, clearCacheBeforeFetching: clearCacheBeforeFetching, clearCacheWhenFetchFails: true, continueWhenError: true, awaitFetching: true, requestType: RequestType.refresh);
-  }
-
-  Future<void> refreshAsync({required final bool clearCacheBeforeFetching}) async {
-    await _doStateAction(forceRefresh: true, clearCacheBeforeFetching: clearCacheBeforeFetching, clearCacheWhenFetchFails: true, continueWhenError: true, awaitFetching: false, requestType: RequestType.refresh);
+    await _doStateAction(forceRefresh: true, clearCacheBeforeFetching: clearCacheBeforeFetching, clearCacheWhenFetchFails: true, continueWhenError: true, requestType: RequestType.refresh);
   }
 
   Future<void> requestNextData({required final bool continueWhenError}) async {
-    await _doStateAction(forceRefresh: false, clearCacheBeforeFetching: false, clearCacheWhenFetchFails: false, continueWhenError: continueWhenError, awaitFetching: true, requestType: RequestType.next);
+    await _doStateAction(forceRefresh: false, clearCacheBeforeFetching: false, clearCacheWhenFetchFails: false, continueWhenError: continueWhenError, requestType: RequestType.next);
   }
 
   Future<void> requestPrevData({required final bool continueWhenError}) async {
-    await _doStateAction(forceRefresh: false, clearCacheBeforeFetching: false, clearCacheWhenFetchFails: false, continueWhenError: continueWhenError, awaitFetching: true, requestType: RequestType.prev);
+    await _doStateAction(forceRefresh: false, clearCacheBeforeFetching: false, clearCacheWhenFetchFails: false, continueWhenError: continueWhenError, requestType: RequestType.prev);
   }
 
-  Future<void> _doStateAction({required final bool forceRefresh, required final bool clearCacheBeforeFetching, required final bool clearCacheWhenFetchFails, required final bool continueWhenError, required final bool awaitFetching, required final RequestType requestType}) async {
+  Future<void> _doStateAction({required final bool forceRefresh, required final bool clearCacheBeforeFetching, required final bool clearCacheWhenFetchFails, required final bool continueWhenError, required final RequestType requestType}) async {
     await _dataStateManager.load(_param).when(
+          initial: () async {
+            switch (requestType) {
+              case RequestType.refresh:
+                if (continueWhenError) await _doDataAction(forceRefresh: forceRefresh, clearCacheBeforeFetching: clearCacheBeforeFetching, clearCacheWhenFetchFails: clearCacheWhenFetchFails, requestType: const KeyedRequestType.refresh());
+                break;
+              case RequestType.next:
+              case RequestType.prev:
+                _dataStateManager.save(_param, const DataState.error(exception: AdditionalRequestOnErrorStateException()));
+                break;
+            }
+          },
           fixed: (nextDataState, prevDataState) async {
             switch (requestType) {
               case RequestType.refresh:
                 if (nextDataState is! AdditionalDataStateLoading && prevDataState is! AdditionalDataStateLoading) {
-                  await _doDataAction(forceRefresh: forceRefresh, clearCacheBeforeFetching: clearCacheBeforeFetching, clearCacheWhenFetchFails: clearCacheWhenFetchFails, awaitFetching: awaitFetching, requestType: const KeyedRequestType.refresh());
+                  await _doDataAction(forceRefresh: forceRefresh, clearCacheBeforeFetching: clearCacheBeforeFetching, clearCacheWhenFetchFails: clearCacheWhenFetchFails, requestType: const KeyedRequestType.refresh());
                 }
                 break;
               case RequestType.next:
                 await nextDataState.when(
                   fixed: (additionalRequestKey) async {
-                    await _doDataAction(forceRefresh: forceRefresh, clearCacheBeforeFetching: clearCacheBeforeFetching, clearCacheWhenFetchFails: clearCacheWhenFetchFails, awaitFetching: awaitFetching, requestType: KeyedRequestType.next(additionalRequestKey));
+                    await _doDataAction(forceRefresh: forceRefresh, clearCacheBeforeFetching: clearCacheBeforeFetching, clearCacheWhenFetchFails: clearCacheWhenFetchFails, requestType: KeyedRequestType.next(additionalRequestKey));
                   },
                   fixedWithNoMoreAdditionalData: () async {},
                   loading: (additionalRequestKey) async {},
                   error: (additionalRequestKey, exception) async {
-                    if (continueWhenError) await _doDataAction(forceRefresh: true, clearCacheBeforeFetching: clearCacheBeforeFetching, clearCacheWhenFetchFails: clearCacheWhenFetchFails, awaitFetching: awaitFetching, requestType: KeyedRequestType.next(additionalRequestKey));
+                    if (continueWhenError) await _doDataAction(forceRefresh: true, clearCacheBeforeFetching: clearCacheBeforeFetching, clearCacheWhenFetchFails: clearCacheWhenFetchFails, requestType: KeyedRequestType.next(additionalRequestKey));
                   },
                 );
                 break;
               case RequestType.prev:
                 await prevDataState.when(
                   fixed: (additionalRequestKey) async {
-                    await _doDataAction(forceRefresh: forceRefresh, clearCacheBeforeFetching: clearCacheBeforeFetching, clearCacheWhenFetchFails: clearCacheWhenFetchFails, awaitFetching: awaitFetching, requestType: KeyedRequestType.prev(additionalRequestKey));
+                    await _doDataAction(forceRefresh: forceRefresh, clearCacheBeforeFetching: clearCacheBeforeFetching, clearCacheWhenFetchFails: clearCacheWhenFetchFails, requestType: KeyedRequestType.prev(additionalRequestKey));
                   },
                   fixedWithNoMoreAdditionalData: () async {},
                   loading: (additionalRequestKey) async {},
                   error: (additionalRequestKey, exception) async {
-                    if (continueWhenError) await _doDataAction(forceRefresh: true, clearCacheBeforeFetching: clearCacheBeforeFetching, clearCacheWhenFetchFails: clearCacheWhenFetchFails, awaitFetching: awaitFetching, requestType: KeyedRequestType.prev(additionalRequestKey));
+                    if (continueWhenError) await _doDataAction(forceRefresh: true, clearCacheBeforeFetching: clearCacheBeforeFetching, clearCacheWhenFetchFails: clearCacheWhenFetchFails, requestType: KeyedRequestType.prev(additionalRequestKey));
                   },
                 );
                 break;
@@ -115,7 +118,7 @@ class DataSelector<PARAM, DATA> {
           error: (exception) async {
             switch (requestType) {
               case RequestType.refresh:
-                if (continueWhenError) await _doDataAction(forceRefresh: forceRefresh, clearCacheBeforeFetching: clearCacheBeforeFetching, clearCacheWhenFetchFails: clearCacheWhenFetchFails, awaitFetching: awaitFetching, requestType: const KeyedRequestType.refresh());
+                if (continueWhenError) await _doDataAction(forceRefresh: forceRefresh, clearCacheBeforeFetching: clearCacheBeforeFetching, clearCacheWhenFetchFails: clearCacheWhenFetchFails, requestType: const KeyedRequestType.refresh());
                 break;
               case RequestType.next:
               case RequestType.prev:
@@ -126,24 +129,24 @@ class DataSelector<PARAM, DATA> {
         );
   }
 
-  Future<void> _doDataAction({required final bool forceRefresh, required final bool clearCacheBeforeFetching, required final bool clearCacheWhenFetchFails, required final bool awaitFetching, required final KeyedRequestType requestType}) async {
+  Future<void> _doDataAction({required final bool forceRefresh, required final bool clearCacheBeforeFetching, required final bool clearCacheWhenFetchFails, required final KeyedRequestType requestType}) async {
     final cachedData = await _cacheDataManager.load();
     await requestType.when(
       refresh: () async {
         if (cachedData == null || forceRefresh || await _needRefresh(cachedData)) {
-          await _prepareFetch(clearCacheBeforeFetching: clearCacheBeforeFetching, clearCacheWhenFetchFails: clearCacheWhenFetchFails, awaitFetching: awaitFetching, requestType: requestType);
+          await _prepareFetch(clearCacheBeforeFetching: clearCacheBeforeFetching, clearCacheWhenFetchFails: clearCacheWhenFetchFails, requestType: requestType);
         }
       },
       next: (requestKey) async {
         if (cachedData != null) {
-          await _prepareFetch(clearCacheBeforeFetching: clearCacheBeforeFetching, clearCacheWhenFetchFails: clearCacheWhenFetchFails, awaitFetching: awaitFetching, requestType: requestType);
+          await _prepareFetch(clearCacheBeforeFetching: clearCacheBeforeFetching, clearCacheWhenFetchFails: clearCacheWhenFetchFails, requestType: requestType);
         } else {
           _dataStateManager.save(_param, const DataState.error(exception: AdditionalRequestOnNullException()));
         }
       },
       prev: (requestKey) async {
         if (cachedData != null) {
-          await _prepareFetch(clearCacheBeforeFetching: clearCacheBeforeFetching, clearCacheWhenFetchFails: clearCacheWhenFetchFails, awaitFetching: awaitFetching, requestType: requestType);
+          await _prepareFetch(clearCacheBeforeFetching: clearCacheBeforeFetching, clearCacheWhenFetchFails: clearCacheWhenFetchFails, requestType: requestType);
         } else {
           _dataStateManager.save(_param, const DataState.error(exception: AdditionalRequestOnNullException()));
         }
@@ -151,7 +154,7 @@ class DataSelector<PARAM, DATA> {
     );
   }
 
-  Future<void> _prepareFetch({required final bool clearCacheBeforeFetching, required final bool clearCacheWhenFetchFails, required final bool awaitFetching, required final KeyedRequestType requestType}) async {
+  Future<void> _prepareFetch({required final bool clearCacheBeforeFetching, required final bool clearCacheWhenFetchFails, required final KeyedRequestType requestType}) async {
     if (clearCacheBeforeFetching) await _cacheDataManager.save(null);
     final state = _dataStateManager.load(_param);
     requestType.when(
@@ -159,12 +162,7 @@ class DataSelector<PARAM, DATA> {
       next: (requestKey) => _dataStateManager.save(_param, DataState.fixed(nextDataState: AdditionalDataState.loading(additionalRequestKey: requestKey), prevDataState: state.prevDataStateOrNull())),
       prev: (requestKey) => _dataStateManager.save(_param, DataState.fixed(nextDataState: state.nextDataStateOrNull(), prevDataState: AdditionalDataState.loading(additionalRequestKey: requestKey))),
     );
-    if (awaitFetching) {
-      await _fetchNewData(clearCacheWhenFetchFails: clearCacheWhenFetchFails, requestType: requestType);
-    } else {
-      // ignore: unawaited_futures
-      _fetchNewData(clearCacheWhenFetchFails: clearCacheWhenFetchFails, requestType: requestType);
-    }
+    await _fetchNewData(clearCacheWhenFetchFails: clearCacheWhenFetchFails, requestType: requestType);
   }
 
   Future<void> _fetchNewData({required final bool clearCacheWhenFetchFails, required final KeyedRequestType requestType}) async {

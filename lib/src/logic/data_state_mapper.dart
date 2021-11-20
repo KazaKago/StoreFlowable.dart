@@ -3,8 +3,11 @@ import 'package:store_flowable/src/core/loading_state.dart';
 import 'package:store_flowable/src/datastate/data_state.dart';
 
 extension DataStateMapper on DataState {
-  LoadingState<DATA> toLoadingState<DATA>(final DATA? content) {
+  LoadingState<DATA>? toLoadingState<DATA>(final DATA? content) {
     return when(
+      initial: () {
+        return null;
+      },
       fixed: (nextDataState, prevDataState) {
         if (content != null) {
           return nextDataState.when(
