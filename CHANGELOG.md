@@ -1,3 +1,7 @@
+## 0.4.1
+
+fix twice notification on listen.
+
 ## 0.4.0
 
 merge PARAM & KEY generics.
