@@ -9,7 +9,7 @@ extension StoreFlowableExtension<PARAM, DATA> on StoreFlowableFactory<PARAM, DAT
   // ignore: use_to_and_as_if_applicable
   StoreFlowable<PARAM, DATA> create(final PARAM param) {
     return StoreFlowableImpl(
-      key: param,
+      param: param,
       flowableDataStateManager: getFlowableDataStateManager(),
       cacheDataManager: AnyCacheDataManager(
         loadFunc: () => loadDataFromCache(param),
