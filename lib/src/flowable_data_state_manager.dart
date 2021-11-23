@@ -1,4 +1,5 @@
 import 'package:rxdart/rxdart.dart';
+import 'package:store_flowable/src/datastate/additional_data_state.dart';
 import 'package:store_flowable/src/datastate/data_state.dart';
 import 'package:store_flowable/src/datastate/data_state_manager.dart';
 import 'package:store_flowable/src/datastate/flow_accessor.dart';
@@ -30,7 +31,7 @@ abstract class FlowableDataStateManager<KEY> implements DataStateManager<KEY>, F
 
 extension _MapBehaviorSubjectDataStateExtension<K> on Map<K, BehaviorSubject<DataState>> {
   BehaviorSubject<DataState> getOrCreate(final K key) {
-    return getOrCreateSeeded(key, () => const DataState.initial());
+    return getOrCreateSeeded(key, () => const DataState.fixed(nextDataState: AdditionalDataState.fixedWithNoMoreAdditionalData(), prevDataState: AdditionalDataStateFixedWithNoMoreAdditionalData(), isInitial: true));
   }
 }
 

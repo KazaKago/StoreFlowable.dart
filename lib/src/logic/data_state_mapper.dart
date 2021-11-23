@@ -5,10 +5,7 @@ import 'package:store_flowable/src/datastate/data_state.dart';
 extension DataStateMapper on DataState {
   LoadingState<DATA>? toLoadingState<DATA>(final DATA? content) {
     return when(
-      initial: () {
-        return null;
-      },
-      fixed: (nextDataState, prevDataState) {
+      fixed: (nextDataState, prevDataState, isInitial) {
         if (content != null) {
           return nextDataState.when(
             fixed: (canRequestAdditionalData) {
@@ -48,6 +45,8 @@ extension DataStateMapper on DataState {
               );
             },
           );
+        } else if (isInitial) {
+          return null;
         } else {
           return LoadingState.loading(content);
         }
