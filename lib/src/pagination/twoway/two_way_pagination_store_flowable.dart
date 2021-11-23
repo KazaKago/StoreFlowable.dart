@@ -1,6 +1,6 @@
 import 'package:store_flowable/src/pagination/oneway/pagination_store_flowable.dart';
 
-abstract class TwoWayPaginationStoreFlowable<PARAM, DATA> implements PaginationStoreFlowable<PARAM, DATA> {
+abstract class TwoWayPaginationStoreFlowable<DATA> implements PaginationStoreFlowable<DATA> {
   Future<void> requestPrevData({final bool continueWhenError});
 
   @override

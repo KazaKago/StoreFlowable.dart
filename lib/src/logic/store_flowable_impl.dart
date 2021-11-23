@@ -12,7 +12,7 @@ import 'package:store_flowable/src/pagination/oneway/pagination_store_flowable.d
 import 'package:store_flowable/src/pagination/twoway/two_way_pagination_store_flowable.dart';
 import 'package:store_flowable/src/store_flowable.dart';
 
-class StoreFlowableImpl<PARAM, DATA> implements StoreFlowable<PARAM, DATA>, PaginationStoreFlowable<PARAM, DATA>, TwoWayPaginationStoreFlowable<PARAM, DATA> {
+class StoreFlowableImpl<PARAM, DATA> implements StoreFlowable<DATA>, PaginationStoreFlowable<DATA>, TwoWayPaginationStoreFlowable<DATA> {
   factory StoreFlowableImpl({
     required final PARAM param,
     required final FlowableDataStateManager<PARAM> flowableDataStateManager,
