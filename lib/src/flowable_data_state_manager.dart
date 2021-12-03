@@ -4,22 +4,22 @@ import 'package:store_flowable/src/datastate/data_state.dart';
 import 'package:store_flowable/src/datastate/data_state_manager.dart';
 import 'package:store_flowable/src/datastate/flow_accessor.dart';
 
-abstract class FlowableDataStateManager<KEY> implements DataStateManager<KEY>, FlowAccessor<KEY> {
-  final Map<KEY, BehaviorSubject<DataState>> _dataState = {};
+abstract class FlowableDataStateManager<PARAM> implements DataStateManager<PARAM>, FlowAccessor<PARAM> {
+  final Map<PARAM, BehaviorSubject<DataState>> _dataState = {};
 
   @override
-  Stream<DataState> getFlow(final KEY key) {
-    return _dataState.getOrCreate(key);
+  Stream<DataState> getFlow(final PARAM param) {
+    return _dataState.getOrCreate(param);
   }
 
   @override
-  DataState load(final KEY key) {
-    return _dataState.getOrCreate(key).value;
+  DataState load(final PARAM param) {
+    return _dataState.getOrCreate(param).value;
   }
 
   @override
-  void save(final KEY key, final DataState state) {
-    _dataState.getOrCreate(key).add(state);
+  void save(final PARAM param, final DataState state) {
+    _dataState.getOrCreate(param).add(state);
   }
 
   void clearAll() {

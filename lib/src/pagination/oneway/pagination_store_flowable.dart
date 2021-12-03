@@ -1,6 +1,6 @@
 import 'package:store_flowable/src/store_flowable.dart';
 
-abstract class PaginationStoreFlowable<KEY, DATA> implements StoreFlowable<KEY, DATA> {
+abstract class PaginationStoreFlowable<DATA> implements StoreFlowable<DATA> {
   Future<void> requestNextData({final bool continueWhenError});
 
   @override

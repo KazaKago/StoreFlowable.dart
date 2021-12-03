@@ -7,9 +7,9 @@ import 'package:store_flowable/src/pagination/twoway/two_way_pagination_store_fl
 
 extension TwoWayPaginatingStoreFlowableExtension<PARAM, DATA> on TwoWayPaginationStoreFlowableFactory<PARAM, DATA> {
   // ignore: use_to_and_as_if_applicable
-  TwoWayPaginationStoreFlowable<PARAM, DATA> create(final PARAM param) {
+  TwoWayPaginationStoreFlowable<DATA> create(final PARAM param) {
     return StoreFlowableImpl(
-      key: param,
+      param: param,
       flowableDataStateManager: getFlowableDataStateManager(),
       cacheDataManager: AnyCacheDataManager(
         loadFunc: () => loadDataFromCache(param),

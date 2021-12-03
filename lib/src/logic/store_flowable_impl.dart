@@ -12,33 +12,33 @@ import 'package:store_flowable/src/pagination/oneway/pagination_store_flowable.d
 import 'package:store_flowable/src/pagination/twoway/two_way_pagination_store_flowable.dart';
 import 'package:store_flowable/src/store_flowable.dart';
 
-class StoreFlowableImpl<KEY, DATA> implements StoreFlowable<KEY, DATA>, PaginationStoreFlowable<KEY, DATA>, TwoWayPaginationStoreFlowable<KEY, DATA> {
+class StoreFlowableImpl<PARAM, DATA> implements StoreFlowable<DATA>, PaginationStoreFlowable<DATA>, TwoWayPaginationStoreFlowable<DATA> {
   factory StoreFlowableImpl({
-    required final KEY key,
-    required final FlowableDataStateManager<KEY> flowableDataStateManager,
+    required final PARAM param,
+    required final FlowableDataStateManager<PARAM> flowableDataStateManager,
     required final CacheDataManager<DATA> cacheDataManager,
     required final OriginDataManager<DATA> originDataManager,
     required final Future<bool> Function(DATA cachedData) needRefresh,
   }) {
-    final dataSelector = DataSelector<KEY, DATA>(key, flowableDataStateManager, cacheDataManager, originDataManager, needRefresh);
-    return StoreFlowableImpl._(key, flowableDataStateManager, cacheDataManager, dataSelector);
+    final dataSelector = DataSelector<PARAM, DATA>(param, flowableDataStateManager, cacheDataManager, originDataManager, needRefresh);
+    return StoreFlowableImpl._(param, flowableDataStateManager, cacheDataManager, dataSelector);
   }
 
   const StoreFlowableImpl._(
-    this._key,
+    this._param,
     this._flowableDataStateManager,
     this._cacheDataManager,
     this._dataSelector,
   );
 
-  final KEY _key;
-  final FlowableDataStateManager<KEY> _flowableDataStateManager;
+  final PARAM _param;
+  final FlowableDataStateManager<PARAM> _flowableDataStateManager;
   final CacheDataManager<DATA> _cacheDataManager;
-  final DataSelector<KEY, DATA> _dataSelector;
+  final DataSelector<PARAM, DATA> _dataSelector;
 
   @override
   LoadingStateStream<DATA> publish({final bool forceRefresh = false}) {
-    return _flowableDataStateManager.getFlow(_key).doOnListen(() {
+    return _flowableDataStateManager.getFlow(_param).doOnListen(() {
       if (forceRefresh) {
         _dataSelector.refresh(clearCacheBeforeFetching: true);
       } else {
@@ -73,7 +73,7 @@ class StoreFlowableImpl<KEY, DATA> implements StoreFlowable<KEY, DATA>, Paginati
         //do nothing.
         break;
     }
-    return _flowableDataStateManager.getFlow(_key).asyncExpand((dataState) async* {
+    return _flowableDataStateManager.getFlow(_param).asyncExpand((dataState) async* {
       final data = await _dataSelector.loadValidCacheOrNull();
       if (dataState is DataStateFixed) {
         if (data != null) {

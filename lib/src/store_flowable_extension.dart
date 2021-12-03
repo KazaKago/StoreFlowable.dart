@@ -7,9 +7,9 @@ import 'package:store_flowable/src/store_flowable_factory.dart';
 
 extension StoreFlowableExtension<PARAM, DATA> on StoreFlowableFactory<PARAM, DATA> {
   // ignore: use_to_and_as_if_applicable
-  StoreFlowable<PARAM, DATA> create(final PARAM param) {
+  StoreFlowable<DATA> create(final PARAM param) {
     return StoreFlowableImpl(
-      key: param,
+      param: param,
       flowableDataStateManager: getFlowableDataStateManager(),
       cacheDataManager: AnyCacheDataManager(
         loadFunc: () => loadDataFromCache(param),

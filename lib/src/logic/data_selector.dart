@@ -9,11 +9,11 @@ import 'package:store_flowable/src/logic/request_type.dart';
 import 'package:store_flowable/src/logic/string_utils.dart';
 import 'package:store_flowable/src/origin/origin_data_manager.dart';
 
-class DataSelector<KEY, DATA> {
-  const DataSelector(this._key, this._dataStateManager, this._cacheDataManager, this._originDataManager, this._needRefresh);
+class DataSelector<PARAM, DATA> {
+  const DataSelector(this._param, this._dataStateManager, this._cacheDataManager, this._originDataManager, this._needRefresh);
 
-  final KEY _key;
-  final DataStateManager<KEY> _dataStateManager;
+  final PARAM _param;
+  final DataStateManager<PARAM> _dataStateManager;
   final CacheDataManager<DATA> _cacheDataManager;
   final OriginDataManager<DATA> _originDataManager;
   final Future<bool> Function(DATA cachedData) _needRefresh;
@@ -29,7 +29,7 @@ class DataSelector<KEY, DATA> {
     if (nextKey != null) {
       nextDataState = AdditionalDataState.fixed(additionalRequestKey: nextKey);
     } else {
-      final state = _dataStateManager.load(_key);
+      final state = _dataStateManager.load(_param);
       final nextKey = state.nextKeyOrNull();
       if (nextKey != null) {
         nextDataState = AdditionalDataState.fixed(additionalRequestKey: nextKey);
@@ -41,7 +41,7 @@ class DataSelector<KEY, DATA> {
     if (prevKey != null) {
       prevDataState = AdditionalDataState.fixed(additionalRequestKey: prevKey);
     } else {
-      final state = _dataStateManager.load(_key);
+      final state = _dataStateManager.load(_param);
       final prevKey = state.prevKeyOrNull();
       if (prevKey != null) {
         prevDataState = AdditionalDataState.fixed(additionalRequestKey: prevKey);
@@ -49,7 +49,7 @@ class DataSelector<KEY, DATA> {
         prevDataState = const AdditionalDataState.fixedWithNoMoreAdditionalData();
       }
     }
-    _dataStateManager.save(_key, DataState.fixed(nextDataState: nextDataState, prevDataState: prevDataState, isInitial: false));
+    _dataStateManager.save(_param, DataState.fixed(nextDataState: nextDataState, prevDataState: prevDataState, isInitial: false));
   }
 
   Future<void> validate() async {
@@ -69,7 +69,7 @@ class DataSelector<KEY, DATA> {
   }
 
   Future<void> _doStateAction({required final bool forceRefresh, required final bool clearCacheBeforeFetching, required final bool clearCacheWhenFetchFails, required final bool continueWhenError, required final RequestType requestType}) async {
-    await _dataStateManager.load(_key).when(
+    await _dataStateManager.load(_param).when(
           fixed: (nextDataState, prevDataState, isInitial) async {
             switch (requestType) {
               case RequestType.refresh:
@@ -111,7 +111,7 @@ class DataSelector<KEY, DATA> {
                 break;
               case RequestType.next:
               case RequestType.prev:
-                _dataStateManager.save(_key, const DataState.error(exception: AdditionalRequestOnErrorStateException()));
+                _dataStateManager.save(_param, const DataState.error(exception: AdditionalRequestOnErrorStateException()));
                 break;
             }
           },
@@ -130,14 +130,14 @@ class DataSelector<KEY, DATA> {
         if (cachedData != null) {
           await _prepareFetch(clearCacheBeforeFetching: clearCacheBeforeFetching, clearCacheWhenFetchFails: clearCacheWhenFetchFails, requestType: requestType);
         } else {
-          _dataStateManager.save(_key, const DataState.error(exception: AdditionalRequestOnNullException()));
+          _dataStateManager.save(_param, const DataState.error(exception: AdditionalRequestOnNullException()));
         }
       },
       prev: (requestKey) async {
         if (cachedData != null) {
           await _prepareFetch(clearCacheBeforeFetching: clearCacheBeforeFetching, clearCacheWhenFetchFails: clearCacheWhenFetchFails, requestType: requestType);
         } else {
-          _dataStateManager.save(_key, const DataState.error(exception: AdditionalRequestOnNullException()));
+          _dataStateManager.save(_param, const DataState.error(exception: AdditionalRequestOnNullException()));
         }
       },
     );
@@ -145,11 +145,11 @@ class DataSelector<KEY, DATA> {
 
   Future<void> _prepareFetch({required final bool clearCacheBeforeFetching, required final bool clearCacheWhenFetchFails, required final KeyedRequestType requestType}) async {
     if (clearCacheBeforeFetching) await _cacheDataManager.save(null);
-    final state = _dataStateManager.load(_key);
+    final state = _dataStateManager.load(_param);
     requestType.when(
-      refresh: () => _dataStateManager.save(_key, const DataState.loading()),
-      next: (requestKey) => _dataStateManager.save(_key, DataState.fixed(nextDataState: AdditionalDataState.loading(additionalRequestKey: requestKey), prevDataState: state.prevDataStateOrNull(), isInitial: false)),
-      prev: (requestKey) => _dataStateManager.save(_key, DataState.fixed(nextDataState: state.nextDataStateOrNull(), prevDataState: AdditionalDataState.loading(additionalRequestKey: requestKey), isInitial: false)),
+      refresh: () => _dataStateManager.save(_param, const DataState.loading()),
+      next: (requestKey) => _dataStateManager.save(_param, DataState.fixed(nextDataState: AdditionalDataState.loading(additionalRequestKey: requestKey), prevDataState: state.prevDataStateOrNull(), isInitial: false)),
+      prev: (requestKey) => _dataStateManager.save(_param, DataState.fixed(nextDataState: state.nextDataStateOrNull(), prevDataState: AdditionalDataState.loading(additionalRequestKey: requestKey), isInitial: false)),
     );
     await _fetchNewData(clearCacheWhenFetchFails: clearCacheWhenFetchFails, requestType: requestType);
   }
@@ -176,19 +176,19 @@ class DataSelector<KEY, DATA> {
           await _cacheDataManager.savePrev(cachedData, result.data);
         },
       );
-      final state = _dataStateManager.load(_key);
+      final state = _dataStateManager.load(_param);
       requestType.when(
-        refresh: () => _dataStateManager.save(_key, DataState.fixed(nextDataState: (result.nextKey.isNullOrEmpty()) ? const AdditionalDataState.fixedWithNoMoreAdditionalData() : AdditionalDataState.fixed(additionalRequestKey: result.nextKey!), prevDataState: (result.prevKey.isNullOrEmpty()) ? const AdditionalDataState.fixedWithNoMoreAdditionalData() : AdditionalDataState.fixed(additionalRequestKey: result.prevKey!), isInitial: false)),
-        next: (requestKey) => _dataStateManager.save(_key, DataState.fixed(nextDataState: (result.nextKey.isNullOrEmpty()) ? const AdditionalDataState.fixedWithNoMoreAdditionalData() : AdditionalDataState.fixed(additionalRequestKey: result.nextKey!), prevDataState: state.prevDataStateOrNull(), isInitial: false)),
-        prev: (requestKey) => _dataStateManager.save(_key, DataState.fixed(nextDataState: state.nextDataStateOrNull(), prevDataState: (result.prevKey.isNullOrEmpty()) ? const AdditionalDataState.fixedWithNoMoreAdditionalData() : AdditionalDataState.fixed(additionalRequestKey: result.prevKey!), isInitial: false)),
+        refresh: () => _dataStateManager.save(_param, DataState.fixed(nextDataState: (result.nextKey.isNullOrEmpty()) ? const AdditionalDataState.fixedWithNoMoreAdditionalData() : AdditionalDataState.fixed(additionalRequestKey: result.nextKey!), prevDataState: (result.prevKey.isNullOrEmpty()) ? const AdditionalDataState.fixedWithNoMoreAdditionalData() : AdditionalDataState.fixed(additionalRequestKey: result.prevKey!), isInitial: false)),
+        next: (requestKey) => _dataStateManager.save(_param, DataState.fixed(nextDataState: (result.nextKey.isNullOrEmpty()) ? const AdditionalDataState.fixedWithNoMoreAdditionalData() : AdditionalDataState.fixed(additionalRequestKey: result.nextKey!), prevDataState: state.prevDataStateOrNull(), isInitial: false)),
+        prev: (requestKey) => _dataStateManager.save(_param, DataState.fixed(nextDataState: state.nextDataStateOrNull(), prevDataState: (result.prevKey.isNullOrEmpty()) ? const AdditionalDataState.fixedWithNoMoreAdditionalData() : AdditionalDataState.fixed(additionalRequestKey: result.prevKey!), isInitial: false)),
       );
     } on Exception catch (exception) {
       if (clearCacheWhenFetchFails) await _cacheDataManager.save(null);
-      final state = _dataStateManager.load(_key);
+      final state = _dataStateManager.load(_param);
       requestType.when(
-        refresh: () => _dataStateManager.save(_key, DataState.error(exception: exception)),
-        next: (requestKey) => _dataStateManager.save(_key, DataState.fixed(nextDataState: AdditionalDataState.error(additionalRequestKey: requestKey, exception: exception), prevDataState: state.prevDataStateOrNull(), isInitial: false)),
-        prev: (requestKey) => _dataStateManager.save(_key, DataState.fixed(nextDataState: state.nextDataStateOrNull(), prevDataState: AdditionalDataState.error(additionalRequestKey: requestKey, exception: exception), isInitial: false)),
+        refresh: () => _dataStateManager.save(_param, DataState.error(exception: exception)),
+        next: (requestKey) => _dataStateManager.save(_param, DataState.fixed(nextDataState: AdditionalDataState.error(additionalRequestKey: requestKey, exception: exception), prevDataState: state.prevDataStateOrNull(), isInitial: false)),
+        prev: (requestKey) => _dataStateManager.save(_param, DataState.fixed(nextDataState: state.nextDataStateOrNull(), prevDataState: AdditionalDataState.error(additionalRequestKey: requestKey, exception: exception), isInitial: false)),
       );
     }
   }
