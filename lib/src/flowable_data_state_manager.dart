@@ -31,7 +31,7 @@ abstract class FlowableDataStateManager<PARAM> implements DataStateManager<PARAM
 
 extension _MapBehaviorSubjectDataStateExtension<K> on Map<K, BehaviorSubject<DataState>> {
   BehaviorSubject<DataState> getOrCreate(final K key) {
-    return getOrCreateSeeded(key, () => const DataState.fixed(nextDataState: AdditionalDataState.fixedWithNoMoreAdditionalData(), prevDataState: AdditionalDataStateFixedWithNoMoreAdditionalData(), isInitial: true));
+    return getOrCreateSeeded(key, () => const DataState.fixed(nextDataState: AdditionalDataState.fixedWithNoMoreAdditionalData(), prevDataState: AdditionalDataStateFixedWithNoMoreAdditionalData()));
   }
 }
 
