@@ -19,12 +19,10 @@ class _$DataStateTearOff {
 
   DataStateFixed fixed(
       {required AdditionalDataState nextDataState,
-      required AdditionalDataState prevDataState,
-      required bool isInitial}) {
+      required AdditionalDataState prevDataState}) {
     return DataStateFixed(
       nextDataState: nextDataState,
       prevDataState: prevDataState,
-      isInitial: isInitial,
     );
   }
 
@@ -47,7 +45,7 @@ mixin _$DataState {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(AdditionalDataState nextDataState,
-            AdditionalDataState prevDataState, bool isInitial)
+            AdditionalDataState prevDataState)
         fixed,
     required TResult Function() loading,
     required TResult Function(Exception exception) error,
@@ -56,7 +54,7 @@ mixin _$DataState {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function(AdditionalDataState nextDataState,
-            AdditionalDataState prevDataState, bool isInitial)?
+            AdditionalDataState prevDataState)?
         fixed,
     TResult Function()? loading,
     TResult Function(Exception exception)? error,
@@ -65,7 +63,7 @@ mixin _$DataState {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(AdditionalDataState nextDataState,
-            AdditionalDataState prevDataState, bool isInitial)?
+            AdditionalDataState prevDataState)?
         fixed,
     TResult Function()? loading,
     TResult Function(Exception exception)? error,
@@ -117,9 +115,7 @@ abstract class $DataStateFixedCopyWith<$Res> {
           DataStateFixed value, $Res Function(DataStateFixed) then) =
       _$DataStateFixedCopyWithImpl<$Res>;
   $Res call(
-      {AdditionalDataState nextDataState,
-      AdditionalDataState prevDataState,
-      bool isInitial});
+      {AdditionalDataState nextDataState, AdditionalDataState prevDataState});
 
   $AdditionalDataStateCopyWith<$Res> get nextDataState;
   $AdditionalDataStateCopyWith<$Res> get prevDataState;
@@ -139,7 +135,6 @@ class _$DataStateFixedCopyWithImpl<$Res> extends _$DataStateCopyWithImpl<$Res>
   $Res call({
     Object? nextDataState = freezed,
     Object? prevDataState = freezed,
-    Object? isInitial = freezed,
   }) {
     return _then(DataStateFixed(
       nextDataState: nextDataState == freezed
@@ -150,10 +145,6 @@ class _$DataStateFixedCopyWithImpl<$Res> extends _$DataStateCopyWithImpl<$Res>
           ? _value.prevDataState
           : prevDataState // ignore: cast_nullable_to_non_nullable
               as AdditionalDataState,
-      isInitial: isInitial == freezed
-          ? _value.isInitial
-          : isInitial // ignore: cast_nullable_to_non_nullable
-              as bool,
     ));
   }
 
@@ -176,21 +167,17 @@ class _$DataStateFixedCopyWithImpl<$Res> extends _$DataStateCopyWithImpl<$Res>
 
 class _$DataStateFixed extends DataStateFixed {
   const _$DataStateFixed(
-      {required this.nextDataState,
-      required this.prevDataState,
-      required this.isInitial})
+      {required this.nextDataState, required this.prevDataState})
       : super._();
 
   @override
   final AdditionalDataState nextDataState;
   @override
   final AdditionalDataState prevDataState;
-  @override
-  final bool isInitial;
 
   @override
   String toString() {
-    return 'DataState.fixed(nextDataState: $nextDataState, prevDataState: $prevDataState, isInitial: $isInitial)';
+    return 'DataState.fixed(nextDataState: $nextDataState, prevDataState: $prevDataState)';
   }
 
   @override
@@ -201,14 +188,11 @@ class _$DataStateFixed extends DataStateFixed {
             (identical(other.nextDataState, nextDataState) ||
                 other.nextDataState == nextDataState) &&
             (identical(other.prevDataState, prevDataState) ||
-                other.prevDataState == prevDataState) &&
-            (identical(other.isInitial, isInitial) ||
-                other.isInitial == isInitial));
+                other.prevDataState == prevDataState));
   }
 
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, nextDataState, prevDataState, isInitial);
+  int get hashCode => Object.hash(runtimeType, nextDataState, prevDataState);
 
   @JsonKey(ignore: true)
   @override
@@ -219,38 +203,38 @@ class _$DataStateFixed extends DataStateFixed {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(AdditionalDataState nextDataState,
-            AdditionalDataState prevDataState, bool isInitial)
+            AdditionalDataState prevDataState)
         fixed,
     required TResult Function() loading,
     required TResult Function(Exception exception) error,
   }) {
-    return fixed(nextDataState, prevDataState, isInitial);
+    return fixed(nextDataState, prevDataState);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function(AdditionalDataState nextDataState,
-            AdditionalDataState prevDataState, bool isInitial)?
+            AdditionalDataState prevDataState)?
         fixed,
     TResult Function()? loading,
     TResult Function(Exception exception)? error,
   }) {
-    return fixed?.call(nextDataState, prevDataState, isInitial);
+    return fixed?.call(nextDataState, prevDataState);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(AdditionalDataState nextDataState,
-            AdditionalDataState prevDataState, bool isInitial)?
+            AdditionalDataState prevDataState)?
         fixed,
     TResult Function()? loading,
     TResult Function(Exception exception)? error,
     required TResult orElse(),
   }) {
     if (fixed != null) {
-      return fixed(nextDataState, prevDataState, isInitial);
+      return fixed(nextDataState, prevDataState);
     }
     return orElse();
   }
@@ -293,13 +277,11 @@ class _$DataStateFixed extends DataStateFixed {
 abstract class DataStateFixed extends DataState {
   const factory DataStateFixed(
       {required AdditionalDataState nextDataState,
-      required AdditionalDataState prevDataState,
-      required bool isInitial}) = _$DataStateFixed;
+      required AdditionalDataState prevDataState}) = _$DataStateFixed;
   const DataStateFixed._() : super._();
 
   AdditionalDataState get nextDataState;
   AdditionalDataState get prevDataState;
-  bool get isInitial;
   @JsonKey(ignore: true)
   $DataStateFixedCopyWith<DataStateFixed> get copyWith =>
       throw _privateConstructorUsedError;
@@ -346,7 +328,7 @@ class _$DataStateLoading extends DataStateLoading {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(AdditionalDataState nextDataState,
-            AdditionalDataState prevDataState, bool isInitial)
+            AdditionalDataState prevDataState)
         fixed,
     required TResult Function() loading,
     required TResult Function(Exception exception) error,
@@ -358,7 +340,7 @@ class _$DataStateLoading extends DataStateLoading {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function(AdditionalDataState nextDataState,
-            AdditionalDataState prevDataState, bool isInitial)?
+            AdditionalDataState prevDataState)?
         fixed,
     TResult Function()? loading,
     TResult Function(Exception exception)? error,
@@ -370,7 +352,7 @@ class _$DataStateLoading extends DataStateLoading {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(AdditionalDataState nextDataState,
-            AdditionalDataState prevDataState, bool isInitial)?
+            AdditionalDataState prevDataState)?
         fixed,
     TResult Function()? loading,
     TResult Function(Exception exception)? error,
@@ -487,7 +469,7 @@ class _$DataStateError extends DataStateError {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(AdditionalDataState nextDataState,
-            AdditionalDataState prevDataState, bool isInitial)
+            AdditionalDataState prevDataState)
         fixed,
     required TResult Function() loading,
     required TResult Function(Exception exception) error,
@@ -499,7 +481,7 @@ class _$DataStateError extends DataStateError {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function(AdditionalDataState nextDataState,
-            AdditionalDataState prevDataState, bool isInitial)?
+            AdditionalDataState prevDataState)?
         fixed,
     TResult Function()? loading,
     TResult Function(Exception exception)? error,
@@ -511,7 +493,7 @@ class _$DataStateError extends DataStateError {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(AdditionalDataState nextDataState,
-            AdditionalDataState prevDataState, bool isInitial)?
+            AdditionalDataState prevDataState)?
         fixed,
     TResult Function()? loading,
     TResult Function(Exception exception)? error,

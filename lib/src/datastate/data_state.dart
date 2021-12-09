@@ -7,7 +7,7 @@ part 'data_state.freezed.dart';
 class DataState with _$DataState {
   const DataState._();
 
-  const factory DataState.fixed({required AdditionalDataState nextDataState, required AdditionalDataState prevDataState, required bool isInitial}) = DataStateFixed;
+  const factory DataState.fixed({required AdditionalDataState nextDataState, required AdditionalDataState prevDataState}) = DataStateFixed;
 
   const factory DataState.loading() = DataStateLoading;
 
@@ -15,7 +15,7 @@ class DataState with _$DataState {
 
   AdditionalDataState nextDataStateOrNull() {
     return when(
-      fixed: (nextDataState, prevDataState, isInitial) => nextDataState,
+      fixed: (nextDataState, prevDataState) => nextDataState,
       loading: () => const AdditionalDataState.fixedWithNoMoreAdditionalData(),
       error: (exception) => const AdditionalDataState.fixedWithNoMoreAdditionalData(),
     );
@@ -23,7 +23,7 @@ class DataState with _$DataState {
 
   AdditionalDataState prevDataStateOrNull() {
     return when(
-      fixed: (nextDataState, prevDataState, isInitial) => prevDataState,
+      fixed: (nextDataState, prevDataState) => prevDataState,
       loading: () => const AdditionalDataState.fixedWithNoMoreAdditionalData(),
       error: (exception) => const AdditionalDataState.fixedWithNoMoreAdditionalData(),
     );
@@ -31,7 +31,7 @@ class DataState with _$DataState {
 
   String? nextKeyOrNull() {
     return when(
-      fixed: (nextDataState, prevDataState, isInitial) => nextDataState.additionalRequestKeyOrNull(),
+      fixed: (nextDataState, prevDataState) => nextDataState.additionalRequestKeyOrNull(),
       loading: () => null,
       error: (exception) => null,
     );
@@ -39,7 +39,7 @@ class DataState with _$DataState {
 
   String? prevKeyOrNull() {
     return when(
-      fixed: (nextDataState, prevDataState, isInitial) => prevDataState.additionalRequestKeyOrNull(),
+      fixed: (nextDataState, prevDataState) => prevDataState.additionalRequestKeyOrNull(),
       loading: () => null,
       error: (exception) => null,
     );

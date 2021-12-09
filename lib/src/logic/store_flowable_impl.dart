@@ -1,4 +1,3 @@
-import 'package:rxdart/rxdart.dart';
 import 'package:store_flowable/src/cache/cache_data_manager.dart';
 import 'package:store_flowable/src/core/loading_state_stream.dart';
 import 'package:store_flowable/src/datastate/data_state.dart';
@@ -38,16 +37,17 @@ class StoreFlowableImpl<PARAM, DATA> implements StoreFlowable<DATA>, PaginationS
 
   @override
   LoadingStateStream<DATA> publish({final bool forceRefresh = false}) {
-    return _flowableDataStateManager.getFlow(_param).doOnListen(() {
+    return Future(() {
       if (forceRefresh) {
-        _dataSelector.refresh(clearCacheBeforeFetching: true);
+        return _dataSelector.refreshAsync(clearCacheBeforeFetching: true);
       } else {
-        _dataSelector.validate();
+        return _dataSelector.validateAsync();
       }
-    }).asyncExpand((dataState) async* {
+    }).asStream().asyncExpand((event) {
+      return _flowableDataStateManager.getFlow(_param);
+    }).asyncMap((dataState) async {
       final data = await _cacheDataManager.load();
-      final state = dataState.toLoadingState(data);
-      if (state != null) yield state;
+      return dataState.toLoadingState(data);
     });
   }
 
