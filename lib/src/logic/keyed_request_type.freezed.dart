@@ -1,5 +1,6 @@
 // coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
+// ignore_for_file: type=lint
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target
 
 part of 'keyed_request_type.dart';
@@ -11,31 +12,7 @@ part of 'keyed_request_type.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more informations: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
-
-/// @nodoc
-class _$KeyedRequestTypeTearOff {
-  const _$KeyedRequestTypeTearOff();
-
-  _Refresh refresh() {
-    return const _Refresh();
-  }
-
-  _Next next(String requestKey) {
-    return _Next(
-      requestKey,
-    );
-  }
-
-  _Prev prev(String requestKey) {
-    return _Prev(
-      requestKey,
-    );
-  }
-}
-
-/// @nodoc
-const $KeyedRequestType = _$KeyedRequestTypeTearOff();
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
 /// @nodoc
 mixin _$KeyedRequestType {
@@ -257,12 +234,13 @@ class _$_Next implements _Next {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _Next &&
-            (identical(other.requestKey, requestKey) ||
-                other.requestKey == requestKey));
+            const DeepCollectionEquality()
+                .equals(other.requestKey, requestKey));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, requestKey);
+  int get hashCode =>
+      Object.hash(runtimeType, const DeepCollectionEquality().hash(requestKey));
 
   @JsonKey(ignore: true)
   @override
@@ -339,9 +317,9 @@ class _$_Next implements _Next {
 }
 
 abstract class _Next implements KeyedRequestType {
-  const factory _Next(String requestKey) = _$_Next;
+  const factory _Next(final String requestKey) = _$_Next;
 
-  String get requestKey;
+  String get requestKey => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
   _$NextCopyWith<_Next> get copyWith => throw _privateConstructorUsedError;
 }
@@ -393,12 +371,13 @@ class _$_Prev implements _Prev {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _Prev &&
-            (identical(other.requestKey, requestKey) ||
-                other.requestKey == requestKey));
+            const DeepCollectionEquality()
+                .equals(other.requestKey, requestKey));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, requestKey);
+  int get hashCode =>
+      Object.hash(runtimeType, const DeepCollectionEquality().hash(requestKey));
 
   @JsonKey(ignore: true)
   @override
@@ -475,9 +454,9 @@ class _$_Prev implements _Prev {
 }
 
 abstract class _Prev implements KeyedRequestType {
-  const factory _Prev(String requestKey) = _$_Prev;
+  const factory _Prev(final String requestKey) = _$_Prev;
 
-  String get requestKey;
+  String get requestKey => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
   _$PrevCopyWith<_Prev> get copyWith => throw _privateConstructorUsedError;
 }

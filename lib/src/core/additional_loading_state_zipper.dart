@@ -1,7 +1,7 @@
 import 'package:store_flowable/src/core/additional_loading_state.dart';
 
 extension AdditionalLoadingStateZipper on AdditionalLoadingState {
-  AdditionalLoadingState zip(final AdditionalLoadingState state2) {
+  AdditionalLoadingState zip(AdditionalLoadingState state2) {
     return when(
       fixed: (canRequestAdditionalData) => state2.when(
         fixed: (otherCanRequestAdditionalData) => AdditionalLoadingState.fixed(canRequestAdditionalData: canRequestAdditionalData || otherCanRequestAdditionalData),

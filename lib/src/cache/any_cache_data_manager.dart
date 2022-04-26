@@ -14,17 +14,17 @@ class AnyCacheDataManager<DATA> implements CacheDataManager<DATA> {
   }
 
   @override
-  Future<void> save(final DATA? newData) {
+  Future<void> save(DATA? newData) {
     return saveFunc(newData);
   }
 
   @override
-  Future<void> saveNext(final DATA cachedData, final DATA newData) {
+  Future<void> saveNext(DATA cachedData, DATA newData) {
     return saveNextFunc(cachedData, newData);
   }
 
   @override
-  Future<void> savePrev(final DATA cachedData, final DATA newData) {
+  Future<void> savePrev(DATA cachedData, DATA newData) {
     return savePrevFunc(cachedData, newData);
   }
 }

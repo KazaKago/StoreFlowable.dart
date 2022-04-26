@@ -14,12 +14,12 @@ class AnyOriginDataManager<DATA> implements OriginDataManager<DATA> {
   }
 
   @override
-  Future<InternalFetched<DATA>> fetchNext(final String nextKey) {
+  Future<InternalFetched<DATA>> fetchNext(String nextKey) {
     return fetchNextFunc(nextKey);
   }
 
   @override
-  Future<InternalFetched<DATA>> fetchPrev(final String prevKey) {
+  Future<InternalFetched<DATA>> fetchPrev(String prevKey) {
     return fetchPrevFunc(prevKey);
   }
 }

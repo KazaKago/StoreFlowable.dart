@@ -23,7 +23,7 @@ class DataSelector<PARAM, DATA> {
     return (data != null && !await _needRefresh(data)) ? data : null;
   }
 
-  Future<void> update(final DATA? newData, final String? nextKey, final String? prevKey) async {
+  Future<void> update(DATA? newData, String? nextKey, String? prevKey) async {
     await _cacheDataManager.save(newData);
     final AdditionalDataState nextDataState;
     if (nextKey != null) {
@@ -60,23 +60,23 @@ class DataSelector<PARAM, DATA> {
     await _doStateAction(forceRefresh: false, clearCacheBeforeFetching: true, clearCacheWhenFetchFails: true, continueWhenError: true, awaitFetching: false, requestType: RequestType.refresh);
   }
 
-  Future<void> refresh({required final bool clearCacheBeforeFetching}) async {
+  Future<void> refresh({required bool clearCacheBeforeFetching}) async {
     await _doStateAction(forceRefresh: true, clearCacheBeforeFetching: clearCacheBeforeFetching, clearCacheWhenFetchFails: true, continueWhenError: true, awaitFetching: true, requestType: RequestType.refresh);
   }
 
-  Future<void> refreshAsync({required final bool clearCacheBeforeFetching}) async {
+  Future<void> refreshAsync({required bool clearCacheBeforeFetching}) async {
     await _doStateAction(forceRefresh: true, clearCacheBeforeFetching: clearCacheBeforeFetching, clearCacheWhenFetchFails: true, continueWhenError: true, awaitFetching: false, requestType: RequestType.refresh);
   }
 
-  Future<void> requestNextData({required final bool continueWhenError}) async {
+  Future<void> requestNextData({required bool continueWhenError}) async {
     await _doStateAction(forceRefresh: false, clearCacheBeforeFetching: false, clearCacheWhenFetchFails: false, continueWhenError: continueWhenError, awaitFetching: true, requestType: RequestType.next);
   }
 
-  Future<void> requestPrevData({required final bool continueWhenError}) async {
+  Future<void> requestPrevData({required bool continueWhenError}) async {
     await _doStateAction(forceRefresh: false, clearCacheBeforeFetching: false, clearCacheWhenFetchFails: false, continueWhenError: continueWhenError, awaitFetching: true, requestType: RequestType.prev);
   }
 
-  Future<void> _doStateAction({required final bool forceRefresh, required final bool clearCacheBeforeFetching, required final bool clearCacheWhenFetchFails, required final bool continueWhenError, required final bool awaitFetching, required final RequestType requestType}) async {
+  Future<void> _doStateAction({required bool forceRefresh, required bool clearCacheBeforeFetching, required bool clearCacheWhenFetchFails, required bool continueWhenError, required bool awaitFetching, required RequestType requestType}) async {
     await _dataStateManager.load(_param).when(
           fixed: (nextDataState, prevDataState) async {
             switch (requestType) {
@@ -126,7 +126,7 @@ class DataSelector<PARAM, DATA> {
         );
   }
 
-  Future<void> _doDataAction({required final bool forceRefresh, required final bool clearCacheBeforeFetching, required final bool clearCacheWhenFetchFails, required final bool awaitFetching, required final KeyedRequestType requestType}) async {
+  Future<void> _doDataAction({required bool forceRefresh, required bool clearCacheBeforeFetching, required bool clearCacheWhenFetchFails, required bool awaitFetching, required KeyedRequestType requestType}) async {
     final cachedData = await _cacheDataManager.load();
     await requestType.when(
       refresh: () async {
@@ -151,7 +151,7 @@ class DataSelector<PARAM, DATA> {
     );
   }
 
-  Future<void> _prepareFetch({required final bool clearCacheBeforeFetching, required final bool clearCacheWhenFetchFails, required final bool awaitFetching, required final KeyedRequestType requestType}) async {
+  Future<void> _prepareFetch({required bool clearCacheBeforeFetching, required bool clearCacheWhenFetchFails, required bool awaitFetching, required KeyedRequestType requestType}) async {
     if (clearCacheBeforeFetching) await _cacheDataManager.save(null);
     final state = _dataStateManager.load(_param);
     requestType.when(
@@ -167,7 +167,7 @@ class DataSelector<PARAM, DATA> {
     }
   }
 
-  Future<void> _fetchNewData({required final bool clearCacheWhenFetchFails, required final KeyedRequestType requestType}) async {
+  Future<void> _fetchNewData({required bool clearCacheWhenFetchFails, required KeyedRequestType requestType}) async {
     try {
       final result = await requestType.when(
         refresh: () async => _originDataManager.fetch(),

@@ -1,5 +1,6 @@
 // coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
+// ignore_for_file: type=lint
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target
 
 part of 'loading_state.dart';
@@ -11,36 +12,7 @@ part of 'loading_state.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more informations: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
-
-/// @nodoc
-class _$LoadingStateTearOff {
-  const _$LoadingStateTearOff();
-
-  _Loading<T> loading<T>(T? content) {
-    return _Loading<T>(
-      content,
-    );
-  }
-
-  _Completed<T> completed<T>(
-      T content, AdditionalLoadingState next, AdditionalLoadingState prev) {
-    return _Completed<T>(
-      content,
-      next,
-      prev,
-    );
-  }
-
-  _Error<T> error<T>(Exception exception) {
-    return _Error<T>(
-      exception,
-    );
-  }
-}
-
-/// @nodoc
-const $LoadingState = _$LoadingStateTearOff();
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
 /// @nodoc
 mixin _$LoadingState<T> {
@@ -250,9 +222,9 @@ class _$_Loading<T> implements _Loading<T> {
 }
 
 abstract class _Loading<T> implements LoadingState<T> {
-  const factory _Loading(T? content) = _$_Loading<T>;
+  const factory _Loading(final T? content) = _$_Loading<T>;
 
-  T? get content;
+  T? get content => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
   _$LoadingCopyWith<T, _Loading<T>> get copyWith =>
       throw _privateConstructorUsedError;
@@ -341,13 +313,16 @@ class _$_Completed<T> implements _Completed<T> {
         (other.runtimeType == runtimeType &&
             other is _Completed<T> &&
             const DeepCollectionEquality().equals(other.content, content) &&
-            (identical(other.next, next) || other.next == next) &&
-            (identical(other.prev, prev) || other.prev == prev));
+            const DeepCollectionEquality().equals(other.next, next) &&
+            const DeepCollectionEquality().equals(other.prev, prev));
   }
 
   @override
   int get hashCode => Object.hash(
-      runtimeType, const DeepCollectionEquality().hash(content), next, prev);
+      runtimeType,
+      const DeepCollectionEquality().hash(content),
+      const DeepCollectionEquality().hash(next),
+      const DeepCollectionEquality().hash(prev));
 
   @JsonKey(ignore: true)
   @override
@@ -430,13 +405,12 @@ class _$_Completed<T> implements _Completed<T> {
 }
 
 abstract class _Completed<T> implements LoadingState<T> {
-  const factory _Completed(
-          T content, AdditionalLoadingState next, AdditionalLoadingState prev) =
-      _$_Completed<T>;
+  const factory _Completed(final T content, final AdditionalLoadingState next,
+      final AdditionalLoadingState prev) = _$_Completed<T>;
 
-  T get content;
-  AdditionalLoadingState get next;
-  AdditionalLoadingState get prev;
+  T get content => throw _privateConstructorUsedError;
+  AdditionalLoadingState get next => throw _privateConstructorUsedError;
+  AdditionalLoadingState get prev => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
   _$CompletedCopyWith<T, _Completed<T>> get copyWith =>
       throw _privateConstructorUsedError;
@@ -489,12 +463,12 @@ class _$_Error<T> implements _Error<T> {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _Error<T> &&
-            (identical(other.exception, exception) ||
-                other.exception == exception));
+            const DeepCollectionEquality().equals(other.exception, exception));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, exception);
+  int get hashCode =>
+      Object.hash(runtimeType, const DeepCollectionEquality().hash(exception));
 
   @JsonKey(ignore: true)
   @override
@@ -577,9 +551,9 @@ class _$_Error<T> implements _Error<T> {
 }
 
 abstract class _Error<T> implements LoadingState<T> {
-  const factory _Error(Exception exception) = _$_Error<T>;
+  const factory _Error(final Exception exception) = _$_Error<T>;
 
-  Exception get exception;
+  Exception get exception => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
   _$ErrorCopyWith<T, _Error<T>> get copyWith =>
       throw _privateConstructorUsedError;
