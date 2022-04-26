@@ -7,7 +7,7 @@ import 'package:store_flowable/src/pagination/oneway/pagination_store_flowable_f
 
 extension PaginatingStoreFlowableExtension<PARAM, DATA> on PaginationStoreFlowableFactory<PARAM, DATA> {
   // ignore: use_to_and_as_if_applicable
-  PaginationStoreFlowable<DATA> create(final PARAM param) {
+  PaginationStoreFlowable<DATA> create(PARAM param) {
     return StoreFlowableImpl(
       param: param,
       flowableDataStateManager: getFlowableDataStateManager(),

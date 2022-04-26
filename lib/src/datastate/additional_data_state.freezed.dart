@@ -1,5 +1,6 @@
 // coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
+// ignore_for_file: type=lint
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target
 
 part of 'additional_data_state.dart';
@@ -11,40 +12,7 @@ part of 'additional_data_state.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more informations: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
-
-/// @nodoc
-class _$AdditionalDataStateTearOff {
-  const _$AdditionalDataStateTearOff();
-
-  AdditionalDataStateFixed fixed({required String additionalRequestKey}) {
-    return AdditionalDataStateFixed(
-      additionalRequestKey: additionalRequestKey,
-    );
-  }
-
-  AdditionalDataStateFixedWithNoMoreAdditionalData
-      fixedWithNoMoreAdditionalData() {
-    return const AdditionalDataStateFixedWithNoMoreAdditionalData();
-  }
-
-  AdditionalDataStateLoading loading({required String additionalRequestKey}) {
-    return AdditionalDataStateLoading(
-      additionalRequestKey: additionalRequestKey,
-    );
-  }
-
-  AdditionalDataStateError error(
-      {required String additionalRequestKey, required Exception exception}) {
-    return AdditionalDataStateError(
-      additionalRequestKey: additionalRequestKey,
-      exception: exception,
-    );
-  }
-}
-
-/// @nodoc
-const $AdditionalDataState = _$AdditionalDataStateTearOff();
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
 /// @nodoc
 mixin _$AdditionalDataState {
@@ -174,12 +142,13 @@ class _$AdditionalDataStateFixed extends AdditionalDataStateFixed {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is AdditionalDataStateFixed &&
-            (identical(other.additionalRequestKey, additionalRequestKey) ||
-                other.additionalRequestKey == additionalRequestKey));
+            const DeepCollectionEquality()
+                .equals(other.additionalRequestKey, additionalRequestKey));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, additionalRequestKey);
+  int get hashCode => Object.hash(
+      runtimeType, const DeepCollectionEquality().hash(additionalRequestKey));
 
   @JsonKey(ignore: true)
   @override
@@ -269,10 +238,11 @@ class _$AdditionalDataStateFixed extends AdditionalDataStateFixed {
 
 abstract class AdditionalDataStateFixed extends AdditionalDataState {
   const factory AdditionalDataStateFixed(
-      {required String additionalRequestKey}) = _$AdditionalDataStateFixed;
+          {required final String additionalRequestKey}) =
+      _$AdditionalDataStateFixed;
   const AdditionalDataStateFixed._() : super._();
 
-  String get additionalRequestKey;
+  String get additionalRequestKey => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
   $AdditionalDataStateFixedCopyWith<AdditionalDataStateFixed> get copyWith =>
       throw _privateConstructorUsedError;
@@ -464,12 +434,13 @@ class _$AdditionalDataStateLoading extends AdditionalDataStateLoading {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is AdditionalDataStateLoading &&
-            (identical(other.additionalRequestKey, additionalRequestKey) ||
-                other.additionalRequestKey == additionalRequestKey));
+            const DeepCollectionEquality()
+                .equals(other.additionalRequestKey, additionalRequestKey));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, additionalRequestKey);
+  int get hashCode => Object.hash(
+      runtimeType, const DeepCollectionEquality().hash(additionalRequestKey));
 
   @JsonKey(ignore: true)
   @override
@@ -560,10 +531,11 @@ class _$AdditionalDataStateLoading extends AdditionalDataStateLoading {
 
 abstract class AdditionalDataStateLoading extends AdditionalDataState {
   const factory AdditionalDataStateLoading(
-      {required String additionalRequestKey}) = _$AdditionalDataStateLoading;
+          {required final String additionalRequestKey}) =
+      _$AdditionalDataStateLoading;
   const AdditionalDataStateLoading._() : super._();
 
-  String get additionalRequestKey;
+  String get additionalRequestKey => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
   $AdditionalDataStateLoadingCopyWith<AdditionalDataStateLoading>
       get copyWith => throw _privateConstructorUsedError;
@@ -629,14 +601,16 @@ class _$AdditionalDataStateError extends AdditionalDataStateError {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is AdditionalDataStateError &&
-            (identical(other.additionalRequestKey, additionalRequestKey) ||
-                other.additionalRequestKey == additionalRequestKey) &&
-            (identical(other.exception, exception) ||
-                other.exception == exception));
+            const DeepCollectionEquality()
+                .equals(other.additionalRequestKey, additionalRequestKey) &&
+            const DeepCollectionEquality().equals(other.exception, exception));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, additionalRequestKey, exception);
+  int get hashCode => Object.hash(
+      runtimeType,
+      const DeepCollectionEquality().hash(additionalRequestKey),
+      const DeepCollectionEquality().hash(exception));
 
   @JsonKey(ignore: true)
   @override
@@ -726,12 +700,12 @@ class _$AdditionalDataStateError extends AdditionalDataStateError {
 
 abstract class AdditionalDataStateError extends AdditionalDataState {
   const factory AdditionalDataStateError(
-      {required String additionalRequestKey,
-      required Exception exception}) = _$AdditionalDataStateError;
+      {required final String additionalRequestKey,
+      required final Exception exception}) = _$AdditionalDataStateError;
   const AdditionalDataStateError._() : super._();
 
-  String get additionalRequestKey;
-  Exception get exception;
+  String get additionalRequestKey => throw _privateConstructorUsedError;
+  Exception get exception => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
   $AdditionalDataStateErrorCopyWith<AdditionalDataStateError> get copyWith =>
       throw _privateConstructorUsedError;

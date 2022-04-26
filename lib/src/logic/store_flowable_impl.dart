@@ -13,11 +13,11 @@ import 'package:store_flowable/src/store_flowable.dart';
 
 class StoreFlowableImpl<PARAM, DATA> implements StoreFlowable<DATA>, PaginationStoreFlowable<DATA>, TwoWayPaginationStoreFlowable<DATA> {
   factory StoreFlowableImpl({
-    required final PARAM param,
-    required final FlowableDataStateManager<PARAM> flowableDataStateManager,
-    required final CacheDataManager<DATA> cacheDataManager,
-    required final OriginDataManager<DATA> originDataManager,
-    required final Future<bool> Function(DATA cachedData) needRefresh,
+    required PARAM param,
+    required FlowableDataStateManager<PARAM> flowableDataStateManager,
+    required CacheDataManager<DATA> cacheDataManager,
+    required OriginDataManager<DATA> originDataManager,
+    required Future<bool> Function(DATA cachedData) needRefresh,
   }) {
     final dataSelector = DataSelector<PARAM, DATA>(param, flowableDataStateManager, cacheDataManager, originDataManager, needRefresh);
     return StoreFlowableImpl._(param, flowableDataStateManager, cacheDataManager, dataSelector);
@@ -36,7 +36,7 @@ class StoreFlowableImpl<PARAM, DATA> implements StoreFlowable<DATA>, PaginationS
   final DataSelector<PARAM, DATA> _dataSelector;
 
   @override
-  LoadingStateStream<DATA> publish({final bool forceRefresh = false}) {
+  LoadingStateStream<DATA> publish({bool forceRefresh = false}) {
     return Future(() {
       if (forceRefresh) {
         return _dataSelector.refreshAsync(clearCacheBeforeFetching: true);
@@ -52,7 +52,7 @@ class StoreFlowableImpl<PARAM, DATA> implements StoreFlowable<DATA>, PaginationS
   }
 
   @override
-  Future<DATA?> getData({final GettingFrom from = GettingFrom.both}) async {
+  Future<DATA?> getData({GettingFrom from = GettingFrom.both}) async {
     try {
       return await requireData(from: from);
     } on Exception catch (_) {
@@ -61,7 +61,7 @@ class StoreFlowableImpl<PARAM, DATA> implements StoreFlowable<DATA>, PaginationS
   }
 
   @override
-  Future<DATA> requireData({final GettingFrom from = GettingFrom.both}) async {
+  Future<DATA> requireData({GettingFrom from = GettingFrom.both}) async {
     switch (from) {
       case GettingFrom.both:
         await _dataSelector.validate();
@@ -104,17 +104,17 @@ class StoreFlowableImpl<PARAM, DATA> implements StoreFlowable<DATA>, PaginationS
   }
 
   @override
-  Future<void> requestNextData({final bool continueWhenError = true}) async {
+  Future<void> requestNextData({bool continueWhenError = true}) async {
     await _dataSelector.requestNextData(continueWhenError: continueWhenError);
   }
 
   @override
-  Future<void> requestPrevData({final bool continueWhenError = true}) async {
+  Future<void> requestPrevData({bool continueWhenError = true}) async {
     await _dataSelector.requestPrevData(continueWhenError: continueWhenError);
   }
 
   @override
-  Future<void> update(final DATA? newData, {final String? nextKey, final String? prevKey}) async {
+  Future<void> update(DATA? newData, {String? nextKey, String? prevKey}) async {
     await _dataSelector.update(newData, nextKey, prevKey);
   }
 }

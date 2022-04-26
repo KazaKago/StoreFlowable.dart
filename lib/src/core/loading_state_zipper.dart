@@ -3,7 +3,7 @@ import 'package:store_flowable/src/core/loading_state.dart';
 import 'package:tuple/tuple.dart';
 
 extension LoadingStateZipper<A> on LoadingState<A> {
-  LoadingState<Z> zip2<B, Z>(final LoadingState<B> state2, final Z Function(A rawContent1, B rawContent2) transform) {
+  LoadingState<Z> zip2<B, Z>(LoadingState<B> state2, Z Function(A rawContent1, B rawContent2) transform) {
     return when(
       loading: (content) => state2.when(
         loading: (otherContent) => LoadingState.loading((content != null && otherContent != null) ? transform(content, otherContent) : null),
@@ -23,7 +23,7 @@ extension LoadingStateZipper<A> on LoadingState<A> {
     );
   }
 
-  LoadingState<Z> zip3<B, C, Z>(final LoadingState<B> state2, final LoadingState<C> state3, final Z Function(A rawContent1, B rawContent2, C rawContent3) transform) {
+  LoadingState<Z> zip3<B, C, Z>(LoadingState<B> state2, LoadingState<C> state3, Z Function(A rawContent1, B rawContent2, C rawContent3) transform) {
     return zip2(state2, (rawContent, B other) {
       return Tuple2(rawContent, other);
     }).zip2(state3, (rawContent, C other) {
@@ -31,7 +31,7 @@ extension LoadingStateZipper<A> on LoadingState<A> {
     });
   }
 
-  LoadingState<Z> zip4<B, C, D, Z>(final LoadingState<B> state2, final LoadingState<C> state3, final LoadingState<D> state4, final Z Function(A rawContent1, B rawContent2, C rawContent3, D rawContent4) transform) {
+  LoadingState<Z> zip4<B, C, D, Z>(LoadingState<B> state2, LoadingState<C> state3, LoadingState<D> state4, Z Function(A rawContent1, B rawContent2, C rawContent3, D rawContent4) transform) {
     return zip2(state2, (rawContent, B other) {
       return Tuple2(rawContent, other);
     }).zip2(state3, (rawContent, C other) {
@@ -41,7 +41,7 @@ extension LoadingStateZipper<A> on LoadingState<A> {
     });
   }
 
-  LoadingState<Z> zip5<B, C, D, E, Z>(final LoadingState<B> state2, final LoadingState<C> state3, final LoadingState<D> state4, final LoadingState<E> state5, final Z Function(A rawContent1, B rawContent2, C rawContent3, D rawContent4, E rawContent5) transform) {
+  LoadingState<Z> zip5<B, C, D, E, Z>(LoadingState<B> state2, LoadingState<C> state3, LoadingState<D> state4, LoadingState<E> state5, Z Function(A rawContent1, B rawContent2, C rawContent3, D rawContent4, E rawContent5) transform) {
     return zip2(state2, (rawContent, B other) {
       return Tuple2(rawContent, other);
     }).zip2(state3, (rawContent, C other) {

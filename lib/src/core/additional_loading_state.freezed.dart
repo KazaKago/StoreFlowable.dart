@@ -1,5 +1,6 @@
 // coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
+// ignore_for_file: type=lint
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target
 
 part of 'additional_loading_state.dart';
@@ -11,31 +12,7 @@ part of 'additional_loading_state.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more informations: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
-
-/// @nodoc
-class _$AdditionalLoadingStateTearOff {
-  const _$AdditionalLoadingStateTearOff();
-
-  _Fixed fixed({required bool canRequestAdditionalData}) {
-    return _Fixed(
-      canRequestAdditionalData: canRequestAdditionalData,
-    );
-  }
-
-  _Loading loading() {
-    return const _Loading();
-  }
-
-  _Error error(Exception exception) {
-    return _Error(
-      exception,
-    );
-  }
-}
-
-/// @nodoc
-const $AdditionalLoadingState = _$AdditionalLoadingStateTearOff();
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
 /// @nodoc
 mixin _$AdditionalLoadingState {
@@ -150,13 +127,13 @@ class _$_Fixed implements _Fixed {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _Fixed &&
-            (identical(
-                    other.canRequestAdditionalData, canRequestAdditionalData) ||
-                other.canRequestAdditionalData == canRequestAdditionalData));
+            const DeepCollectionEquality().equals(
+                other.canRequestAdditionalData, canRequestAdditionalData));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, canRequestAdditionalData);
+  int get hashCode => Object.hash(runtimeType,
+      const DeepCollectionEquality().hash(canRequestAdditionalData));
 
   @JsonKey(ignore: true)
   @override
@@ -233,9 +210,10 @@ class _$_Fixed implements _Fixed {
 }
 
 abstract class _Fixed implements AdditionalLoadingState {
-  const factory _Fixed({required bool canRequestAdditionalData}) = _$_Fixed;
+  const factory _Fixed({required final bool canRequestAdditionalData}) =
+      _$_Fixed;
 
-  bool get canRequestAdditionalData;
+  bool get canRequestAdditionalData => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
   _$FixedCopyWith<_Fixed> get copyWith => throw _privateConstructorUsedError;
 }
@@ -397,12 +375,12 @@ class _$_Error implements _Error {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _Error &&
-            (identical(other.exception, exception) ||
-                other.exception == exception));
+            const DeepCollectionEquality().equals(other.exception, exception));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, exception);
+  int get hashCode =>
+      Object.hash(runtimeType, const DeepCollectionEquality().hash(exception));
 
   @JsonKey(ignore: true)
   @override
@@ -479,9 +457,9 @@ class _$_Error implements _Error {
 }
 
 abstract class _Error implements AdditionalLoadingState {
-  const factory _Error(Exception exception) = _$_Error;
+  const factory _Error(final Exception exception) = _$_Error;
 
-  Exception get exception;
+  Exception get exception => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
   _$ErrorCopyWith<_Error> get copyWith => throw _privateConstructorUsedError;
 }

@@ -6,7 +6,7 @@ part 'keyed_request_type.freezed.dart';
 class KeyedRequestType with _$KeyedRequestType {
   const factory KeyedRequestType.refresh() = _Refresh;
 
-  const factory KeyedRequestType.next(final String requestKey) = _Next;
+  const factory KeyedRequestType.next(String requestKey) = _Next;
 
-  const factory KeyedRequestType.prev(final String requestKey) = _Prev;
+  const factory KeyedRequestType.prev(String requestKey) = _Prev;
 }

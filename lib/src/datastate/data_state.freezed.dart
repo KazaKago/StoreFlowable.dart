@@ -1,5 +1,6 @@
 // coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
+// ignore_for_file: type=lint
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target
 
 part of 'data_state.dart';
@@ -11,34 +12,7 @@ part of 'data_state.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more informations: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
-
-/// @nodoc
-class _$DataStateTearOff {
-  const _$DataStateTearOff();
-
-  DataStateFixed fixed(
-      {required AdditionalDataState nextDataState,
-      required AdditionalDataState prevDataState}) {
-    return DataStateFixed(
-      nextDataState: nextDataState,
-      prevDataState: prevDataState,
-    );
-  }
-
-  DataStateLoading loading() {
-    return const DataStateLoading();
-  }
-
-  DataStateError error({required Exception exception}) {
-    return DataStateError(
-      exception: exception,
-    );
-  }
-}
-
-/// @nodoc
-const $DataState = _$DataStateTearOff();
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
 /// @nodoc
 mixin _$DataState {
@@ -185,14 +159,17 @@ class _$DataStateFixed extends DataStateFixed {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is DataStateFixed &&
-            (identical(other.nextDataState, nextDataState) ||
-                other.nextDataState == nextDataState) &&
-            (identical(other.prevDataState, prevDataState) ||
-                other.prevDataState == prevDataState));
+            const DeepCollectionEquality()
+                .equals(other.nextDataState, nextDataState) &&
+            const DeepCollectionEquality()
+                .equals(other.prevDataState, prevDataState));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, nextDataState, prevDataState);
+  int get hashCode => Object.hash(
+      runtimeType,
+      const DeepCollectionEquality().hash(nextDataState),
+      const DeepCollectionEquality().hash(prevDataState));
 
   @JsonKey(ignore: true)
   @override
@@ -276,12 +253,12 @@ class _$DataStateFixed extends DataStateFixed {
 
 abstract class DataStateFixed extends DataState {
   const factory DataStateFixed(
-      {required AdditionalDataState nextDataState,
-      required AdditionalDataState prevDataState}) = _$DataStateFixed;
+      {required final AdditionalDataState nextDataState,
+      required final AdditionalDataState prevDataState}) = _$DataStateFixed;
   const DataStateFixed._() : super._();
 
-  AdditionalDataState get nextDataState;
-  AdditionalDataState get prevDataState;
+  AdditionalDataState get nextDataState => throw _privateConstructorUsedError;
+  AdditionalDataState get prevDataState => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
   $DataStateFixedCopyWith<DataStateFixed> get copyWith =>
       throw _privateConstructorUsedError;
@@ -453,12 +430,12 @@ class _$DataStateError extends DataStateError {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is DataStateError &&
-            (identical(other.exception, exception) ||
-                other.exception == exception));
+            const DeepCollectionEquality().equals(other.exception, exception));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, exception);
+  int get hashCode =>
+      Object.hash(runtimeType, const DeepCollectionEquality().hash(exception));
 
   @JsonKey(ignore: true)
   @override
@@ -541,11 +518,11 @@ class _$DataStateError extends DataStateError {
 }
 
 abstract class DataStateError extends DataState {
-  const factory DataStateError({required Exception exception}) =
+  const factory DataStateError({required final Exception exception}) =
       _$DataStateError;
   const DataStateError._() : super._();
 
-  Exception get exception;
+  Exception get exception => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
   $DataStateErrorCopyWith<DataStateError> get copyWith =>
       throw _privateConstructorUsedError;

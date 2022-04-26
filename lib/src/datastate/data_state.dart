@@ -11,7 +11,7 @@ class DataState with _$DataState {
 
   const factory DataState.loading() = DataStateLoading;
 
-  const factory DataState.error({required final Exception exception}) = DataStateError;
+  const factory DataState.error({required Exception exception}) = DataStateError;
 
   AdditionalDataState nextDataStateOrNull() {
     return when(

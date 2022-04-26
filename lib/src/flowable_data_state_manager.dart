@@ -8,17 +8,17 @@ abstract class FlowableDataStateManager<PARAM> implements DataStateManager<PARAM
   final Map<PARAM, BehaviorSubject<DataState>> _dataState = {};
 
   @override
-  Stream<DataState> getFlow(final PARAM param) {
+  Stream<DataState> getFlow(PARAM param) {
     return _dataState.getOrCreate(param);
   }
 
   @override
-  DataState load(final PARAM param) {
+  DataState load(PARAM param) {
     return _dataState.getOrCreate(param).value;
   }
 
   @override
-  void save(final PARAM param, final DataState state) {
+  void save(PARAM param, DataState state) {
     _dataState.getOrCreate(param).add(state);
   }
 
@@ -30,19 +30,19 @@ abstract class FlowableDataStateManager<PARAM> implements DataStateManager<PARAM
 }
 
 extension _MapBehaviorSubjectDataStateExtension<K> on Map<K, BehaviorSubject<DataState>> {
-  BehaviorSubject<DataState> getOrCreate(final K key) {
+  BehaviorSubject<DataState> getOrCreate(K key) {
     return getOrCreateSeeded(key, () => const DataState.fixed(nextDataState: AdditionalDataState.fixedWithNoMoreAdditionalData(), prevDataState: AdditionalDataStateFixedWithNoMoreAdditionalData()));
   }
 }
 
 extension _MapBehaviorSubjectExtension<K, V> on Map<K, BehaviorSubject<V>> {
-  BehaviorSubject<V> getOrCreateSeeded(final K key, final V Function() seed) {
+  BehaviorSubject<V> getOrCreateSeeded(K key, V Function() seed) {
     return getOrPut(key, () => BehaviorSubject.seeded(seed()));
   }
 }
 
 extension _MapExtension<K, V> on Map<K, V> {
-  V getOrPut(final K key, final V Function() orElse) {
+  V getOrPut(K key, V Function() orElse) {
     final value = this[key];
     if (value == null) {
       final elseValue = orElse();
