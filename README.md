@@ -11,6 +11,11 @@ Available for Flutter or any Dart projects.
 
 [WIP]
 
+## Related projects
+
+- [StoreFlowable.kt](https://github.com/KazaKago/StoreFlowable.kt)
+- [StoreFlowable.swift](https://github.com/KazaKago/StoreFlowable.swift)
+
 ## Requirement
 
 - Dart 2.13.0 or later
