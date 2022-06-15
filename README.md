@@ -7,6 +7,11 @@
 [Repository pattern](https://msdn.microsoft.com/en-us/library/ff649690.aspx) support library for Dart with Stream API.  
 Available for Flutter or any Dart projects.  
 
+## Related projects
+
+- [StoreFlowable.kt](https://github.com/KazaKago/StoreFlowable.kt)
+- [StoreFlowable.swift](https://github.com/KazaKago/StoreFlowable.swift)
+
 ## Overview
 
 [WIP]
