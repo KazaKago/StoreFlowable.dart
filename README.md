@@ -16,17 +16,13 @@ Available for Flutter or any Dart projects.
 
 [WIP]
 
-## Requirement
-
-- Dart 2.13.0 or later
-
 ## Install
 
-Add the following dependency in `pubspec.yaml` exchanging x.x.x for the latest release.
+Add the following dependency in `pubspec.yaml` exchanging `*.*.*` for the latest release. [![pub package](https://img.shields.io/pub/v/store_flowable)](https://pub.dev/packages/store_flowable)  
 
 ```yaml
 dependencies:
-  store_flowable: ^x.x.x
+  store_flowable: ^*.*.*
 ```
 
 ## Basic Usage
