@@ -16,7 +16,7 @@ jobs:
 
       - run: dart pub get
 
-      - uses: k-paxian/dart-package-publisher@v1.4
+      - uses: k-paxian/dart-package-publisher@1.5
         with:
           accessToken: ${{ secrets.CREDENTIALS_ACCESS_TOKEN }}
           refreshToken: ${{ secrets.CREDENTIALS_REFRESH_TOKEN }}
